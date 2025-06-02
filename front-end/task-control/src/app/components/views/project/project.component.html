@@ -1,0 +1,37 @@
+<div class="project-container">
+    <div class="projects">
+        @for (project of projects; track project.id) {
+            <app-card 
+                [title]="project.name" 
+                [subtitle]="project.description" 
+                [createdBy]="project.createdBy!" 
+                [createdAt]="project.createdAt!"
+                (onViewClick)="accessProject(project)"
+                (onEditClick)="editProject(project!)"
+                (onDeleteClick)="deleteProject(project)">
+            </app-card>
+        }
+    </div>
+
+    @if (projects.length === 0) {
+        <app-no-entity-found 
+            [title]="'Nenhum projeto encontrada'"
+            [subtitle]="'Crie uma projeto para começar a trabalhar clicando no botão de adicionar'" />
+    }
+
+    <div class="projects-footer">
+        @if (projects.length > 0) { 
+            <app-paginator 
+                class="project-paginator"
+                [currentPage]="currentPage"
+                (currentPageChange)="onPageChange($event)"
+                [totalPages]="totalPages">
+            </app-paginator>
+        }
+        <div class="add-project-container">
+            <button mat-icon-button class="add-project-button" color="primary" (click)="openCreateProjectDialog()">
+                <mat-icon >add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

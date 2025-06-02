@@ -1,0 +1,51 @@
+$background-color: #ececec;
+$text-color: #111827;
+
+.project-card {
+    width: 20rem;
+    background-color: $background-color;
+    color: $text-color;
+    margin-bottom: 0.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    .project-header {
+        ::ng-deep .mat-mdc-card-header-text {
+            width: 100%;
+
+            .project-title {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                font-size: 1.5rem;
+            }
+        
+            .project-subtitle {
+                overflow-wrap: break-word;
+                height: 3rem;
+            }
+        }
+    }   
+}
+
+.project-info {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .buttons-container {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        justify-content: flex-end;
+    }
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}

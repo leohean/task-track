@@ -1,0 +1,61 @@
+<form [formGroup]="taskForm" class="dialog-form">
+    <div class="status-bar {{ this.taskForm.value.status }}"></div>
+    <h2 mat-dialog-title class="dialog-title">
+        @if (isEditingTitle) {
+            <input class="edit-input" formControlName="name" name="name">
+        } @else {
+            <span>{{ task?.name }}</span>
+        }
+        <button mat-icon-button class="edit-button" color="primary" (click)="editTitle()">
+            @if (isEditingTitle) {
+                <mat-icon>check</mat-icon>
+            } @else {
+                <mat-icon>edit</mat-icon>
+            }
+        </button>
+    </h2>
+    <mat-dialog-content>
+        <div class="task-content">
+            <mat-form-field class="task-description-field task-field" appearance="outline">
+                <mat-label>Descrição </mat-label>
+                <textarea matInput formControlName="description" name="description"></textarea>
+            </mat-form-field>
+            <div class="task-info">
+                <mat-form-field class="task-field" appearance="outline">
+                    <mat-label>Tempo estimado </mat-label>
+                    <input matInput formControlName="estimatedTime" name="estimatedTime">
+                </mat-form-field>
+                <mat-form-field class="task-field" appearance="outline">
+                    <mat-label>Tempo gasto </mat-label>
+                    <input matInput formControlName="spentTime" name="spentTime">
+                </mat-form-field>
+                <mat-form-field class="task-field" appearance="outline">
+                    <mat-label>Responsável </mat-label>
+                    <mat-select formControlName="responsibleUser" name="responsibleUser">
+                        <mat-option [value]="task?.responsibleUser">
+                            {{ task?.responsibleUser?.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="task-field" appearance="outline">
+                    <mat-label>Status </mat-label>
+                    <mat-select formControlName="status" name="status">
+                        @for (status of statusesLabels.keys(); track status) {
+                            <mat-option [value]="status">
+                                {{ statusesLabels.get(status) }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="dialog-actions">
+        <button mat-stroked-button mat-dialog-close color="primary">
+            Cancelar
+        </button>
+        <button mat-flat-button color="primary" (click)="save()">
+            Salvar
+        </button>
+    </mat-dialog-actions>
+</form>

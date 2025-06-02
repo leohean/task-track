@@ -1,0 +1,24 @@
+<h2 mat-dialog-title class="dialog-title">{{ isEditMode ? 'Editar' : 'Criar' }} projeto</h2>
+<mat-dialog-content class="mat-typography dialog-content">
+  <form [formGroup]="projectForm" class="dialog-form">
+    <mat-form-field class="dialog-form-field" appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" name="name">
+      <mat-error>{{ getErrorMessage('name') }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="dialog-form-field" appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="description" name="description">
+      <mat-error>{{ getErrorMessage('description') }}</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center" class="dialog-actions">
+  <button mat-stroked-button mat-dialog-close color="warn">
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" [disabled]="!projectForm.valid" (click)="saveProject()">
+    {{ isEditMode ? 'Atualizar' : 'Salvar' }}
+  </button>
+</mat-dialog-actions>
+

@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$custom-primary: (
+  50: lighten(#4B5563, 52%),
+  100: lighten(#4B5563, 40%),
+  200: lighten(#4B5563, 30%),
+  300: lighten(#4B5563, 20%),
+  400: lighten(#4B5563, 10%),
+  500: #4B5563,  // base color
+  600: darken(#4B5563, 10%),
+  700: darken(#4B5563, 20%),
+  800: darken(#4B5563, 30%),
+  900: darken(#4B5563, 40%),
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$myapp-theme-primary: mat.m2-define-palette($custom-primary, 500, 100, 700);
+$myapp-theme-accent: mat.m2-define-palette(mat.$m2-indigo-palette);
+$myapp-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$myapp-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $myapp-theme-primary,
+    accent: $myapp-theme-accent,
+    warn: $myapp-theme-warn,
+  )
+));
+
+@include mat.all-component-themes($myapp-theme);
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+app-card {
+    height: min-content;
+}
+
+// Success snackbar styles
+.success-snackbar {
+  background: #4CAF50;
+  color: white;
+  
+  .mat-simple-snackbar {
+    font-weight: 500;
+  }
+
+  .mdc-snackbar__surface {
+    background-color: #4CAF50 !important;
+    color: white !important;
+  }
+}

@@ -1,0 +1,25 @@
+.no-sprints-found {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    p {
+        font-size: 1.5rem;
+        color: #111827;
+        opacity: 0.5;
+        width: 100vw;
+        text-align: center;
+    }
+    
+}

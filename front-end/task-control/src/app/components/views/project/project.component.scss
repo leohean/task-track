@@ -1,0 +1,54 @@
+$button-color: #4B5563;
+$button-text-color: #F3F4F6;
+$button-hover-color: #37414E;
+
+.project-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    height: 100%;
+
+    .projects {
+        width: calc(100% - 4rem);
+        height: max-content;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 3rem;
+        row-gap: 3rem;
+        overflow-y: auto;
+        padding: 0 2rem;
+        height: 100%;
+        padding: 0.5rem 2rem;
+    }
+    
+    .projects-footer {
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        height: 7rem;
+        display: flex;
+        flex-direction: row;
+
+
+        .project-paginator {
+            left: 50%;
+            position: absolute;
+            transform: translateX(-50%);
+        }
+    
+        .add-project-container {
+            position: absolute;
+            right: 2rem;
+
+            .mat-primary {
+                background-color: $button-color;
+                color: $button-text-color;
+            }
+        }
+    }
+}
+

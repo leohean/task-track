@@ -1,0 +1,95 @@
+$background-color: #fff;
+$text-color: #111827;
+
+$todo-color: #3a5a7c;
+$in_progress-color: #f1c40f;
+$done-color: #2ecc71;
+
+$circle-size: 1.7rem;
+$circle-background: #4B5563;
+$circle-text-color: #F3F4F6;
+
+.task-card {
+    width: 20rem;
+    background-color: $background-color;
+    color: $text-color;
+    margin-bottom: 0.1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+
+    .task-owner {
+        display: flex;
+        align-items: center;
+        column-gap: 0.3rem;
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+
+        .owner-circle {
+            width: $circle-size;
+            height: $circle-size;
+            background-color: $circle-background;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $circle-text-color;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+    }
+
+    .task-status-bar {
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .todo {
+        background-color: $todo-color;
+    }
+
+    .in_progress { 
+        background-color: $in_progress-color;
+    }
+
+    .done {
+        background-color: $done-color;
+    }
+
+    .task-header {
+        ::ng-deep .mat-mdc-card-header-text {
+            width: 100%;
+
+            .task-title {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                font-size: 1.5rem;
+            }
+        }
+    }   
+}
+
+.task-info {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .buttons-container {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        justify-content: flex-end;
+    }
+}
+
+.task-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}

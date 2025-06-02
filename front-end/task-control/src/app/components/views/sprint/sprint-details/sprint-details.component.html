@@ -1,0 +1,35 @@
+<div class="container">
+    @if (userStories.length > 0) {
+        <div class="collapse-container">
+            <button mat-button color="primary" (click)="toggleAllUserStories()">
+                <mat-icon class="collapse-icon" [@rotateIcon]="isAllUserStoriesOpen ? 'expanded' : 'collapsed'">
+                    keyboard_double_arrow_down
+                </mat-icon>
+                <span class="collapse-text">
+                    {{ isAllUserStoriesOpen ? 'Fechar todas ' : 'Abrir todas' }}
+                </span>
+            </button>
+        </div>
+        <div class="user-stories-container">
+            <mat-accordion class="user-stories-accordion" multi cdkDropList (cdkDropListDropped)="drop($event)">
+                @for (userStory of userStories; track userStory.id) {
+                <app-user-story [userStory]="userStory" />
+                }
+            </mat-accordion>
+        </div>
+    }
+
+    @if (userStories.length === 0) {
+        <app-no-entity-found 
+            class="no-user-stories-found"
+            [title]="'Nenhuma user story encontrada'"
+            [subtitle]="'Crie uma user story para começar a trabalhar clicando no botão de adicionar'" />
+    }
+    <div class="user-stories-footer">
+        <div class="add-user-story-container">
+            <button mat-icon-button class="add-user-story-button" color="primary" (click)="openCreateUserStoryDialog()">
+                <mat-icon >add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+// Variables
+$primary-color: #4B5563;
+$spacing-large: 2rem;
+$background-color: #F3F4F6;
+$text-color: #F3F4F6;
+$circle-size: 3rem;
+$circle-background: #929dad;
+$page-title-color: #111827;
+
+.header {
+    background-color: $primary-color;
+    display: flex;
+    align-items: center;
+    height: 6.5rem;
+    justify-content: space-between;
+    padding: 0 $spacing-large;
+
+    .title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .title a {
+        text-decoration: none;
+        color: $text-color;
+    }
+
+    .user-section {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+
+        .username-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+
+            .username {
+                color: $text-color;
+                font-size: 1.1rem;
+            }
+
+            .menu-trigger {
+                color: $text-color;
+            }
+        }
+
+        .profile-circle {
+            width: $circle-size;
+            height: $circle-size;
+            background-color: $circle-background;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $text-color;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.page-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $page-title-color;
+    padding: 2rem $spacing-large 1rem $spacing-large;
+    font-size: 1.8rem;  
+}
+

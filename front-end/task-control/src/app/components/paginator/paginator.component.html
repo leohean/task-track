@@ -1,0 +1,9 @@
+<div class="paginator">
+  <button mat-icon-button (click)="onPreviousPage()" [disabled]="currentPage === 1">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <div class="page-number">{{ currentPage }}</div>
+  <button mat-icon-button (click)="onNextPage()" [disabled]="currentPage === totalPages">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

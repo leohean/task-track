@@ -1,0 +1,41 @@
+<mat-card class="project-card" (click)="onCardClick.emit()">
+    <mat-card-header class="project-header">
+        <mat-card-title class="project-title">
+            {{ title }}
+        </mat-card-title>
+        <mat-card-subtitle class="project-subtitle">
+            {{ subtitle }}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="project-info">
+        <span>
+            Criado por: 
+            <span class="project-creator">
+                {{ createdBy }}
+            </span>
+        </span>
+        <span>
+            Data de criação: 
+            <span class="project-creation-date"> 
+                {{ createdAt | date:'dd/MM/yyyy' }}
+            </span>
+        </span>
+        <div class="buttons-container">
+            @if (showViewButton) {
+                <button mat-icon-button class="view-button" color="primary" (click)="onViewClick.emit()">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+            }
+            @if (showEditButton) {
+                <button mat-icon-button class="edit-button" color="primary" (click)="onEditClick.emit()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            }
+            @if (showDeleteButton) {
+                <button mat-icon-button class="delete-button" color="primary" (click)="onDeleteClick.emit()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            }
+        </div>
+    </mat-card-content>
+</mat-card> 

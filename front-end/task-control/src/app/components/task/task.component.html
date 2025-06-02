@@ -1,0 +1,29 @@
+<mat-card class="task-card" (click)="openTaskDetailsDialog()">
+    <div class="task-status-bar {{task?.status}}"></div>
+    <mat-card-header class="task-header">
+        <mat-card-title class="task-title">
+            {{ task?.name }}
+        </mat-card-title>
+        <mat-card-subtitle class="task-owner">
+            <div class="owner-circle">
+                {{ getInitials() }}
+            </div>
+            {{ task?.responsibleUser?.name }}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="task-info">
+        <span>
+            Tempo estimado: 
+            <span class="task-estimated-time">
+                {{ task?.estimatedTime }}h
+            </span>
+        </span>
+        <span>
+            Tempo gasto: 
+            <span class="task-spent-time"> 
+                {{ task?.spentTime }}h
+            </span>
+        </span>
+    </mat-card-content>
+</mat-card> 
+

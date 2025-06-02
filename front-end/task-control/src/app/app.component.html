@@ -1,0 +1,6 @@
+@if (isValidRoute) {
+    <app-header />
+}
+<div [class]="isValidRoute ? 'container' : ''">
+    <router-outlet />
+</div>

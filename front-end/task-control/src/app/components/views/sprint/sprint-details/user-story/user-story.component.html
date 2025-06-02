@@ -1,0 +1,92 @@
+<mat-expansion-panel class="user-story-accordion">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <span class="user-story-name">
+                {{ userStory?.name }}
+            </span>
+        </mat-panel-title>
+        <mat-panel-description class="user-story-description">
+            <span>
+                {{ userStory?.description }}
+            </span>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-divider />
+    <div class="user-story-actions">
+        <button mat-fab extended color="primary" (click)="openEditUserStoryDialog()">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+        </button>
+    </div>
+    <div class="user-story-content">
+        <div class="todo-column">
+            <p class="column-title">
+                <span>
+                    <span class="column-indicator todo"></span>
+                    To Do
+                </span>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+            </p>
+            <mat-divider class="task-divider" />
+            <div 
+                class="task-list"
+                cdkDropList
+                #todoList="cdkDropList"
+                [cdkDropListData]="todoTasks"
+                [cdkDropListConnectedTo]="[inProgressList, doneList]"
+                (cdkDropListDropped)="drop($event)">
+                @for (task of todoTasks; track task.id) {
+                    <div class="task-item" cdkDrag>
+                        <app-task [task]="task" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="in-progress-column">
+            <p class="column-title">
+                <span>
+                    <span class="column-indicator in_progress"></span>
+                    In Progress
+                </span>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+            </p>
+            <mat-divider class="task-divider" />
+            <div 
+                class="task-list"
+                cdkDropList
+                #inProgressList="cdkDropList"
+                [cdkDropListData]="inProgressTasks"
+                [cdkDropListConnectedTo]="[todoList, doneList]"
+                (cdkDropListDropped)="drop($event)">
+                @for (task of inProgressTasks; track task.id) {
+                    <div class="task-item" cdkDrag>
+                        <app-task [task]="task" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="done-column">
+            <p class="column-title">
+                <span>
+                    <span class="column-indicator done"></span>
+                    Done
+                </span>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+            </p>
+            <mat-divider class="task-divider" />
+            <div 
+                class="task-list"
+                cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="doneTasks"
+                [cdkDropListConnectedTo]="[todoList, inProgressList]"
+                (cdkDropListDropped)="drop($event)">
+                @for (task of doneTasks; track task.id) {
+                    <div class="task-item" cdkDrag>
+                        <app-task [task]="task" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</mat-expansion-panel>

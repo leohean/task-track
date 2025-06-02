@@ -1,0 +1,79 @@
+$todo-color: #3a5a7c;
+$in_progress-color: #f1c40f;
+$done-color: #2ecc71;
+
+.user-story-accordion {
+    margin-bottom: 1rem;
+
+    .user-story-name {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .user-story-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem 0 0 0;
+    }
+
+    .user-story-content {
+        padding: 1rem 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .todo-column, .in-progress-column, .done-column {
+            width: 31%;
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 0.3rem;
+            min-height: 100%;
+
+            .column-title {
+                font-size: 0.9rem;
+                font-weight: 600;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                column-gap: 0.5rem;
+                width: 100%;
+
+                .add-icon {
+                    cursor: pointer;
+                }
+
+                .column-indicator {
+                    border-radius: 50%;
+                    width: 12px;
+                    height: 12px;
+                }
+
+                .todo {
+                    background-color: $todo-color;
+                }
+
+                .in_progress {
+                    background-color: $in_progress-color;
+                }
+
+                .done {
+                    background-color: $done-color;
+                }
+            }
+
+            .task-divider {
+                margin-bottom: 1rem;
+            }
+
+            .task-list {
+                min-height: 100%;
+
+                .task-item {
+                    margin: 1rem 0;
+                }
+            }
+        }
+        
+    }
+}

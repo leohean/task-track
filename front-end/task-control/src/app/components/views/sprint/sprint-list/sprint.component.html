@@ -1,0 +1,37 @@
+<div class="sprint-container">
+    <div class="sprints">
+        @for (sprint of sprints; track sprint.id) {
+            <app-card 
+                [title]="sprint.name" 
+                [subtitle]="sprint.description" 
+                [createdBy]="sprint.createdBy!" 
+                [createdAt]="sprint.createdAt!"
+                (onViewClick)="accessSprint(sprint)"
+                (onEditClick)="editSprint(sprint)"
+                (onDeleteClick)="deleteSprint(sprint)">
+            </app-card>
+        }
+    </div>
+
+    @if (sprints.length === 0) {
+        <app-no-entity-found 
+            [title]="'Nenhuma sprint encontrada'"
+            [subtitle]="'Crie uma sprint para começar a trabalhar clicando no botão de adicionar'" />
+    }
+    
+    <div class="sprints-footer">
+        @if (sprints.length > 0) {
+            <app-paginator 
+                class="sprint-paginator"
+                [currentPage]="currentPage"
+                (currentPageChange)="onPageChange($event)"
+                [totalPages]="totalPages">
+            </app-paginator>
+        }
+        <div class="add-sprint-container">
+            <button mat-icon-button class="add-sprint-button" color="primary" (click)="openCreateSprintDialog()">
+                <mat-icon >add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

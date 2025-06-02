@@ -1,0 +1,103 @@
+$text-color: #111827;
+
+$todo-color: #3a5a7c;
+$in_progress-color: #f1c40f;
+$done-color: #2ecc71;
+
+:host {
+    display: block;
+    padding: 1rem;
+}
+
+.status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.7rem;
+    height: 100%;
+}
+
+.todo {
+    background-color: $todo-color;
+}
+
+.in_progress { 
+    background-color: $in_progress-color;
+}
+
+.done {
+    background-color: $done-color;
+}
+
+
+.dialog-title {
+    color: $text-color;
+    font-size: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    height: 4rem;
+
+    .edit-button {
+        position: absolute;
+        right: 0;
+    }
+
+    .edit-input {
+        width: 95%;
+        font-size: 1.5rem;
+        font-weight: 500;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid $text-color;
+        outline: none;
+        font-family: var(--mdc-dialog-subhead-font, var(--mat-sys-headline-small-font, inherit));
+        letter-spacing: var(--mdc-dialog-subhead-tracking, var(--mat-sys-headline-small-tracking, 0.03125em));
+        padding-left: 0;
+        padding-bottom: 0.5rem;
+    }
+
+    .edit-input:hover {
+        border-bottom: 2px solid $text-color;
+    }
+}
+
+.task-content {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    .task-field {
+        margin-top: 1rem;
+    }
+
+    .task-description-field {
+        width: 75%;
+    
+        textarea {
+            resize: none;
+            height: 19rem;
+        }
+    }
+
+    .task-info {
+        width: 25%;
+
+        .task-field {
+            width: 100%;
+        }
+    }
+    
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1rem;
+
+    button {
+        height: 2.8rem;
+        width: 8rem;
+    }
+}

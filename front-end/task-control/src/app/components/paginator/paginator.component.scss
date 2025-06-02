@@ -1,0 +1,31 @@
+$page-number-color: #6c757d;
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.page-number {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $page-number-color;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+button[mat-icon-button] {
+  color: $page-number-color;
+}
+
+button[mat-icon-button]:disabled {
+  color: rgba(0, 0, 0, 0.26);
+}
