@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,8 +17,8 @@ public class Project {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime createdAt;
-    private String createdBy;
-    private LocalDateTime lastUpdateAt;
-    private String lastUpdatedBy;
+    private LocalDate createdAt;
+    private int createdBy;
+    private LocalDate lastUpdateAt;
+    private int lastUpdateBy;
 }
