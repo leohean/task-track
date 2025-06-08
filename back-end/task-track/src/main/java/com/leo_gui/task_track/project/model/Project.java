@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private LocalDate createdAt;
-    private int createdBy;
+    private Integer createdBy;
     private LocalDate lastUpdateAt;
-    private int lastUpdateBy;
+    private Integer lastUpdateBy;
 }
