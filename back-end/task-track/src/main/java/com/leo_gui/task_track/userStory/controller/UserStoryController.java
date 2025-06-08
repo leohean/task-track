@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("userstory")
 public class UserStoryController {
     @Autowired
     private UserStoryService userStoryService;
@@ -18,8 +19,8 @@ public class UserStoryController {
         return ResponseEntity.ok().body(userStoryService.createUserStory(userStory));
     }
 
-    @DeleteMapping("{id}")
     @Operation(description = "Deleta uma user story indicada pelo id fornecido.")
+    @DeleteMapping("{id}")
     public ResponseEntity deleteUserStoryById(@PathVariable Integer id) {
         userStoryService.deleteUserStoryById(id);
         return ResponseEntity.ok().body("User story deletada com sucesso!");
