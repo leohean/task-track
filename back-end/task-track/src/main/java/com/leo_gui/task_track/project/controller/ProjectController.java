@@ -2,6 +2,7 @@ package com.leo_gui.task_track.project.controller;
 
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.project.service.ProjectService;
+import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,5 +38,12 @@ public class ProjectController {
     @GetMapping()
     public Page<Project> getProjects(Pageable pageable){
         return projectService.findAllProjects(pageable);
+    }
+
+    @Operation(description = "Retorna de forma paginada as sprints de um projeto.")
+    @GetMapping("{id}/sprints")
+    public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer id, Pageable page){
+        Project project = projectService.getProject(id);
+        return ResponseEntity.ok().body(projectService.findAllSprintsByProject(project, page));
     }
 }

@@ -38,9 +38,6 @@ public class SprintController {
     @GetMapping("{id}")
     public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer id, Pageable page){
         Project project = projectService.getProject(id);
-
-        Page<SprintDTO> sprintDTO = sprintService.findAllSprintsByProject(project, page);
-
-        return ResponseEntity.ok().body(sprintDTO);
+        return ResponseEntity.ok().body(sprintService.findAllSprintsByProject(project, page));
     }
 }

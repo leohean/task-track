@@ -2,6 +2,9 @@ package com.leo_gui.task_track.project.service;
 
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.project.repository.ProjectRepository;
+import com.leo_gui.task_track.sprint.dto.SprintDTO;
+import com.leo_gui.task_track.sprint.dto.SprintSimpleDTOMapper;
+import com.leo_gui.task_track.sprint.repository.SprintRepository;
 import com.leo_gui.task_track.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,12 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private SprintRepository sprintRepository;
+
+    @Autowired
+    private SprintSimpleDTOMapper sprintSimpleDTOMapper;
+
     public Project createProject(Project project){
         Project savedProject = projectRepository.save(project);
         return savedProject;
@@ -22,12 +31,7 @@ public class ProjectService {
 
     public Project getProject(Integer id){
         Optional<Project> foundProject = projectRepository.findById(id);
-
-        if(foundProject.isPresent()){
-            return foundProject.get();
-        }else{
-            return null;
-        }
+        return foundProject.isPresent() ? foundProject.get() : null;
     }
 
     public void deleteProjectById(Integer id){
@@ -36,5 +40,9 @@ public class ProjectService {
 
     public Page<Project> findAllProjects(Pageable pageable){
         return projectRepository.findAll(pageable);
+    }
+
+    public Page<SprintDTO> findAllSprintsByProject(Project project, Pageable page){
+        return sprintRepository.findAllByProject(project, page).map(sprintSimpleDTOMapper);
     }
 }
