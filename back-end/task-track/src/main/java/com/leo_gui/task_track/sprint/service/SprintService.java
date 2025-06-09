@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,11 @@ public class SprintService {
     public Sprint createSprint(Sprint sprint){
         Sprint saveSprint = sprintRepository.save(sprint);
         return saveSprint;
+    }
+
+    public Sprint updateSprint(Sprint sprint){
+        Optional<Sprint> sprintOptional = sprintRepository.findById(sprint.getId());
+        return sprintOptional.isPresent() ? sprintRepository.save(sprint) : null;
     }
 
     public void deleteSprintById(Integer id){sprintRepository.deleteById(id);}

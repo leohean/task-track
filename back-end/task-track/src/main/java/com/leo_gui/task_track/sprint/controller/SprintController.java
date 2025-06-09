@@ -17,25 +17,30 @@ import org.springframework.web.bind.annotation.*;
 public class SprintController {
     @Autowired
     private SprintService sprintService;
-
     @Autowired
     private ProjectService projectService;
 
-    @Operation(description = "Cria uma sprint nova.")
     @PostMapping()
+    @Operation(description = "Cria uma sprint nova.")
     public ResponseEntity<Sprint> createSprint(@RequestBody Sprint sprint) {
         return ResponseEntity.ok().body(sprintService.createSprint(sprint));
     }
 
-    @Operation(description = "Deleta a sprint indicada pelo id fornecido.")
+    @PutMapping()
+    @Operation(description = "Atualiza a Sprint.")
+    public ResponseEntity updateProject(@RequestBody Sprint sprint) {
+        return ResponseEntity.ok().body(sprintService.updateSprint(sprint));
+    }
+
     @DeleteMapping("{id}")
+    @Operation(description = "Deleta a sprint indicada pelo id fornecido.")
     public ResponseEntity deleteSprint(@PathVariable Integer id) {
         sprintService.deleteSprintById(id);
         return ResponseEntity.ok().body("Sprint deletada com sucesso!");
     }
 
-    @Operation(description = "Retorna de forma paginada as sprints/user stories/tasks de um projeto.")
     @GetMapping("{id}")
+    @Operation(description = "Retorna de forma paginada as Sprints/UserStories/Tasks de um projeto.")
     public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer id, Pageable page){
         Project project = projectService.getProject(id);
         return ResponseEntity.ok().body(sprintService.findAllSprintsByProject(project, page));

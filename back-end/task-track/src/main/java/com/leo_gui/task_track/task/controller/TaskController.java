@@ -19,6 +19,12 @@ public class TaskController {
         return ResponseEntity.ok().body(taskService.createTask(task));
     }
 
+    @PutMapping
+    @Operation(description = "Atualiza a Task")
+    public ResponseEntity updateTask(@RequestBody Task task) {
+        return ResponseEntity.ok().body(taskService.updateTask(task));
+    }
+
     @Operation(description = "Deleta uma task indicada pelo id fornecido.")
     @DeleteMapping("{id}")
     public ResponseEntity deleteTask(@PathVariable Integer id) {

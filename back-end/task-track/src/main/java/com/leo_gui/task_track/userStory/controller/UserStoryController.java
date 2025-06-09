@@ -13,14 +13,20 @@ public class UserStoryController {
     @Autowired
     private UserStoryService userStoryService;
 
-    @Operation(description = "Cria uma user story nova.")
     @PostMapping()
+    @Operation(description = "Cria uma user story nova.")
     public ResponseEntity createUserStory(@RequestBody UserStory userStory) {
         return ResponseEntity.ok().body(userStoryService.createUserStory(userStory));
     }
 
-    @Operation(description = "Deleta uma user story indicada pelo id fornecido.")
+    @PutMapping
+    @Operation(description = "Atualiza a Sprint.")
+    public ResponseEntity updateUserStory(@RequestBody UserStory userStory) {
+        return ResponseEntity.ok().body(userStoryService.updateUserStory(userStory));
+    }
+
     @DeleteMapping("{id}")
+    @Operation(description = "Deleta uma user story indicada pelo id fornecido.")
     public ResponseEntity deleteUserStoryById(@PathVariable Integer id) {
         userStoryService.deleteUserStoryById(id);
         return ResponseEntity.ok().body("User story deletada com sucesso!");
