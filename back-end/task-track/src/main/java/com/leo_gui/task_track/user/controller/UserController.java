@@ -13,12 +13,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(description = "Cria um usuário novo, desde que o e-mail dele ainda não tenha sido registrado.")
-    @PostMapping()
-    public ResponseEntity<User> saveUser(@RequestBody User user){
-        return ResponseEntity.ok().body(userService.createUser(user));
-    }
-
     @Operation(description = "Atualiza dados do usuário.")
     @PutMapping()
     public ResponseEntity<User> updateUser(@RequestBody User user){

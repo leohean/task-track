@@ -12,17 +12,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user){
-        Optional<User> foundEmail = userRepository.findByEmail(user.getEmail());
-
-        if(foundEmail.isPresent()){
-            return null;
-        }else {
-            User savedUser = userRepository.save(user);
-            return savedUser;
-        }
-    }
-
     public User updateUser(User user){
         Optional<User> foundUser = userRepository.findById(user.getId());
 
