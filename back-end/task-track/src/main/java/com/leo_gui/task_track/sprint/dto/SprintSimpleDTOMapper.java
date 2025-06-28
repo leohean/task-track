@@ -8,6 +8,13 @@ import java.util.function.Function;
 @Service
 public class SprintSimpleDTOMapper implements Function<Sprint, SprintDTO> {
     public SprintDTO apply(Sprint sprint) {
-        return new SprintDTO(sprint.getName(), sprint.getDescription(),null);
+        return new SprintDTO(
+            sprint.getName(), 
+            sprint.getDescription(), 
+            sprint.getCreatedAt(), 
+            sprint.getCreatedBy(),
+            sprint.getLastUpdateAt(), 
+            sprint.getLastUpdateBy(),
+            null);
     }
 }

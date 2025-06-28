@@ -13,6 +13,10 @@ public class SprintDTOMapper implements Function<Sprint, SprintDTO> {
     public SprintDTO apply(Sprint sprint) {
         return new SprintDTO(sprint.getName(),
                 sprint.getDescription(),
+                sprint.getCreatedAt(),
+                sprint.getCreatedBy(),
+                sprint.getLastUpdateAt(),
+                sprint.getLastUpdateBy(),
                 sprint.getUserStories().stream().map(
                         us -> new UserStoryDTO(us.getTitle(), us.getDescription(),
                                     us.getTasks().stream().map(
