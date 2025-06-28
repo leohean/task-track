@@ -25,8 +25,16 @@ public class Task {
     private Double spentTime;
     private Integer taskOrder;
     private Integer idResponsible;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "created_by")
     private Integer createdBy;
+
+    @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
+
+    @Column(name = "last_update_by")
     private Integer lastUpdateBy;
 }

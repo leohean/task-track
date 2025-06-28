@@ -24,9 +24,17 @@ public class Sprint {
 
     private String name;
     private String description;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "created_by")
     private Integer createdBy;
+
+    @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
+
+    @Column(name = "last_update_by")
     private Integer lastUpdateBy;
 
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
