@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record SprintDTO(
+        Integer id,
         String name,
         String description,
         LocalDateTime createdAt,

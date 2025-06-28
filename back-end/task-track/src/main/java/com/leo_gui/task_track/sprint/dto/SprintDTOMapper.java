@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 @Service
 public class SprintDTOMapper implements Function<Sprint, SprintDTO> {
     public SprintDTO apply(Sprint sprint) {
-        return new SprintDTO(sprint.getName(),
+        return new SprintDTO(
+                sprint.getId(),
+                sprint.getName(),
                 sprint.getDescription(),
                 sprint.getCreatedAt(),
                 sprint.getCreatedBy(),
