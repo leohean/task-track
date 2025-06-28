@@ -1,16 +1,15 @@
 package com.leo_gui.task_track.userStory.service;
 
 import com.leo_gui.task_track.sprint.service.SprintService;
+
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.repository.UserStoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -44,7 +43,7 @@ public class UserStoryService {
         userStoryRepository.deleteById(id);
     }
 
-    public Page<UserStory> findAllUserStoriesBySprint(Integer sprintId, Pageable page) {
-        return userStoryRepository.findAllBySprintId(sprintId, page);
+    public List<UserStory> findAllUserStoriesBySprint(Integer sprintId) {
+        return userStoryRepository.findAllBySprintId(sprintId);
     }
 }
