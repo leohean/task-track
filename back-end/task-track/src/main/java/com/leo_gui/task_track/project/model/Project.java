@@ -17,8 +17,8 @@ public class Project {
     private Integer id;
     private String name;
     private String description;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private Integer createdBy;
-    private LocalDate lastUpdateAt;
+    private LocalDateTime lastUpdateAt;
     private Integer lastUpdateBy;
 }

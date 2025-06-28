@@ -1,6 +1,7 @@
 package com.leo_gui.task_track.sprint.service;
 
 import com.leo_gui.task_track.project.model.Project;
+import com.leo_gui.task_track.project.service.ProjectService;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.sprint.dto.SprintDTOMapper;
 import com.leo_gui.task_track.sprint.model.Sprint;
@@ -10,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SprintService {
@@ -19,15 +20,23 @@ public class SprintService {
     private SprintRepository sprintRepository;
 
     @Autowired
+    private ProjectService projectService;
+
+    @Autowired
     private SprintDTOMapper sprintDTOMapper;
 
-    public Sprint createSprint(Sprint sprint){
+    public Sprint createSprint(Integer projectId, Sprint sprint){
+        Project project = projectService.getProject(projectId);
+        sprint.setProject(project);
+        sprint.setCreatedAt(LocalDateTime.now());
+        sprint.setLastUpdateAt(LocalDateTime.now());
+
         Sprint saveSprint = sprintRepository.save(sprint);
         return saveSprint;
     }
 
-    public Sprint updateSprint(Sprint sprint){
-        Optional<Sprint> sprintOptional = sprintRepository.findById(sprint.getId());
+    public Sprint updateSprint(Integer id, Sprint sprint){
+        Optional<Sprint> sprintOptional = sprintRepository.findById(id);
         return sprintOptional.isPresent() ? sprintRepository.save(sprint) : null;
     }
 

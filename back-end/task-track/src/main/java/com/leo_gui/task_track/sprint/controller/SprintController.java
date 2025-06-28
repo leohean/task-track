@@ -20,16 +20,16 @@ public class SprintController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping()
-    @Operation(description = "Cria uma sprint nova.")
-    public ResponseEntity<Sprint> createSprint(@RequestBody Sprint sprint) {
-        return ResponseEntity.ok().body(sprintService.createSprint(sprint));
+    @PostMapping("{projectId}")
+    @Operation(description = "Cria uma sprint nova do projeto em questão.")
+    public ResponseEntity<Sprint> createSprint(@PathVariable Integer projectId, @RequestBody Sprint sprint) {
+        return ResponseEntity.ok().body(sprintService.createSprint(projectId, sprint));
     }
 
-    @PutMapping()
+    @PutMapping("{id}")
     @Operation(description = "Atualiza a Sprint.")
-    public ResponseEntity updateProject(@RequestBody Sprint sprint) {
-        return ResponseEntity.ok().body(sprintService.updateSprint(sprint));
+    public ResponseEntity updateProject(@PathVariable Integer id, @RequestBody Sprint sprint) {
+        return ResponseEntity.ok().body(sprintService.updateSprint(id, sprint));
     }
 
     @DeleteMapping("{id}")
@@ -39,10 +39,10 @@ public class SprintController {
         return ResponseEntity.ok().body("Sprint deletada com sucesso!");
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{projectId}")
     @Operation(description = "Retorna de forma paginada as Sprints/UserStories/Tasks de um projeto.")
-    public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer id, Pageable page){
-        Project project = projectService.getProject(id);
+    public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer projectId, Pageable page){
+        Project project = projectService.getProject(projectId);
         return ResponseEntity.ok().body(sprintService.findAllSprintsByProject(project, page));
     }
 }
