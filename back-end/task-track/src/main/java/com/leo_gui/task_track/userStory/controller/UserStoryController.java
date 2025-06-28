@@ -17,16 +17,16 @@ public class UserStoryController {
     @Autowired
     private UserStoryService userStoryService;
 
-    @PostMapping()
+    @PostMapping("{sprintId}")
     @Operation(description = "Cria uma user story nova.")
-    public ResponseEntity createUserStory(@RequestBody UserStory userStory) {
-        return ResponseEntity.ok().body(userStoryService.createUserStory(userStory));
+    public ResponseEntity createUserStory(@PathVariable Integer sprintId, @RequestBody UserStory userStory) {
+        return ResponseEntity.ok().body(userStoryService.createUserStory(sprintId, userStory));
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @Operation(description = "Atualiza a Sprint.")
-    public ResponseEntity updateUserStory(@RequestBody UserStory userStory) {
-        return ResponseEntity.ok().body(userStoryService.updateUserStory(userStory));
+    public ResponseEntity updateUserStory(@PathVariable Integer id, @RequestBody UserStory userStory) {
+        return ResponseEntity.ok().body(userStoryService.updateUserStory(id, userStory));
     }
 
     @DeleteMapping("{id}")

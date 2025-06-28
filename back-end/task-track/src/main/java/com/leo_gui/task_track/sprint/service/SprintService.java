@@ -45,4 +45,8 @@ public class SprintService {
     public Page<SprintDTO> findAllSprintsByProject(Project project, Pageable pageable){
         return sprintRepository.findAllByProject(project, pageable).map(sprintDTOMapper);
     }
+
+    public Sprint getSprint(Integer id) {
+        return sprintRepository.findById(id).orElseThrow(() -> new RuntimeException("Sprint not found"));
+    }
 }

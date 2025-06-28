@@ -21,7 +21,9 @@ public class UserStory {
     @ManyToOne
     @JoinColumn(name = "id_sprint")
     private Sprint sprint;
+
     private String title;
+    
     private String description;
 
     @Column(name = "story_order")
