@@ -1,9 +1,13 @@
 package com.leo_gui.task_track.userStory.controller;
 
+import com.leo_gui.task_track.project.model.Project;
+import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.service.UserStoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,5 +34,11 @@ public class UserStoryController {
     public ResponseEntity deleteUserStoryById(@PathVariable Integer id) {
         userStoryService.deleteUserStoryById(id);
         return ResponseEntity.ok().body("User story deletada com sucesso!");
+    }
+
+    @GetMapping("{sprintId}")
+    @Operation(description = "Retorna de forma paginada as UserStories/Tasks de uma sprint.")
+    public ResponseEntity<Page<UserStory>> getUserStoriesBySprint(@PathVariable Integer sprintId, Pageable page){
+        return ResponseEntity.ok().body(userStoryService.findAllUserStoriesBySprint(sprintId, page));
     }
 }
