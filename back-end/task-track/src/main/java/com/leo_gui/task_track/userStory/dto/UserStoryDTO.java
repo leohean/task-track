@@ -2,7 +2,6 @@ package com.leo_gui.task_track.userStory.dto;
 
 import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.task.dto.TaskCompleteDTO;
-import com.leo_gui.task_track.task.dto.TaskDTO;
 
 import com.leo_gui.task_track.user.model.User;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
