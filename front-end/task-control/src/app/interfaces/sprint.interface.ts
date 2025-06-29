@@ -1,10 +1,12 @@
+import { User } from "./user.interface";
+
 export interface Sprint {
     id?: number;
     name: string;
     description: string;
-    createdBy?: string;
+    createdBy?: User;
     createdAt?: Date;
     lastUpdatedAt?: Date;
-    lastUpdatedBy?: string;
+    lastUpdatedBy?: User;
     projectId: number;
 } 

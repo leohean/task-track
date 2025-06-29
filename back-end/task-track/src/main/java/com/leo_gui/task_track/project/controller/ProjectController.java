@@ -4,7 +4,13 @@ import com.leo_gui.task_track.project.dto.ProjectDTO;
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.project.service.ProjectService;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
+import com.leo_gui.task_track.user.dto.UserDTO;
+import com.leo_gui.task_track.user.model.User;
+
 import io.swagger.v3.oas.annotations.Operation;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

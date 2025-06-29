@@ -3,9 +3,9 @@ import { BasicUser } from "./basic-user";
 
 export interface Task {
     id: number;
-    name: string;
+    title: string;
     description: string;
-    order: number;
+    taskOrder: number;
     estimatedTime: number;
     spentTime: number;
     status: TaskStatus;

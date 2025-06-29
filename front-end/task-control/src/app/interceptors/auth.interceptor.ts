@@ -28,13 +28,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (error.status === 403) {
         return authService.refreshToken().pipe(
           switchMap(response => {
-            authService.setToken(response.access_token);
+            authService.setToken(response.token);
             authService.setIsRefreshing(false);
 
             // Clone the original request with the new token
             const newRequest = req.clone({
               setHeaders: {
-                Authorization: `Bearer ${response.access_token}`
+                Authorization: `Bearer ${response.token}`
               }
             });
 

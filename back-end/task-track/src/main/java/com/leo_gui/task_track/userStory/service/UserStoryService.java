@@ -70,6 +70,10 @@ public class UserStoryService {
             existingUserStory.setTitle(userStory.getTitle());
             existingUserStory.setDescription(userStory.getDescription());
             existingUserStory.setLastUpdateAt(LocalDateTime.now());
+            existingUserStory.setStoryOrder(Objects.isNull(userStory.getStoryOrder()) ? 
+                existingUserStory.getStoryOrder() : 
+                userStory.getStoryOrder()
+            );
             userStoryRepository.save(existingUserStory);
 
             Sprint sprint = userStory.getSprint();

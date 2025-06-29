@@ -36,11 +36,12 @@ export class CreateSprintDialogComponent {
 
     if (this.data?.projectId && this.data?.sprintId) {
       this.isEditMode = true;
-      this.loadSprint(this.data.projectId, this.data.sprintId);
+      this.loadSprint(this.data.sprintId);
     }
   }
 
-  private loadSprint(projectId: number, sprintId: number) {
+  private loadSprint(sprintId: number) {
+    console.log(sprintId)
     this.sprintService.getById(sprintId).subscribe((sprint) => {
       this.sprintForm.patchValue({
         name: sprint.name,
@@ -72,7 +73,7 @@ export class CreateSprintDialogComponent {
         ? this.sprintService.update(this.data.sprintId!, sprint)
         : this.sprintService.create(sprint);
 
-      operation.subscribe((sprint) => {
+      operation.subscribe(() => {
         const action = this.isEditMode ? 'atualizada' : 'criada';
         const config: MatSnackBarConfig = {
           duration: 3000,

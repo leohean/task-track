@@ -1,8 +1,8 @@
-<mat-expansion-panel class="user-story-accordion">
+<mat-expansion-panel class="user-story-accordion" cdkDrag>
     <mat-expansion-panel-header>
         <mat-panel-title>
             <span class="user-story-name">
-                {{ userStory?.name }}
+                {{ userStory?.title }}
             </span>
         </mat-panel-title>
         <mat-panel-description class="user-story-description">
@@ -13,6 +13,10 @@
     </mat-expansion-panel-header>
     <mat-divider />
     <div class="user-story-actions">
+        <button mat-fab extended color="warn" (click)="deleteUserStory()">
+            <mat-icon>delete</mat-icon>
+            <span>Deletar</span>
+        </button>
         <button mat-fab extended color="primary" (click)="openEditUserStoryDialog()">
             <mat-icon>edit</mat-icon>
             <span>Editar</span>
@@ -25,7 +29,7 @@
                     <span class="column-indicator todo"></span>
                     To Do
                 </span>
-                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog(TaskStatus.TO_DO)">add</mat-icon>
             </p>
             <mat-divider class="task-divider" />
             <div 
@@ -37,7 +41,10 @@
                 (cdkDropListDropped)="drop($event)">
                 @for (task of todoTasks; track task.id) {
                     <div class="task-item" cdkDrag>
-                        <app-task [task]="task" />
+                        <app-task 
+                            [userStoryId]="userStory?.id!"
+                            [task]="task" 
+                            (updateUserStoryList)="updateUserStoryList.emit()"/>
                     </div>
                 }
             </div>
@@ -48,7 +55,7 @@
                     <span class="column-indicator in_progress"></span>
                     In Progress
                 </span>
-                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog(TaskStatus.IN_PROGRESS)">add</mat-icon>
             </p>
             <mat-divider class="task-divider" />
             <div 
@@ -60,7 +67,10 @@
                 (cdkDropListDropped)="drop($event)">
                 @for (task of inProgressTasks; track task.id) {
                     <div class="task-item" cdkDrag>
-                        <app-task [task]="task" />
+                        <app-task 
+                            [userStoryId]="userStory?.id!"
+                            [task]="task" 
+                            (updateUserStoryList)="updateUserStoryList.emit()"/>
                     </div>
                 }
             </div>
@@ -71,7 +81,7 @@
                     <span class="column-indicator done"></span>
                     Done
                 </span>
-                <mat-icon class="add-icon" (click)="openCreateTaskDialog()">add</mat-icon>
+                <mat-icon class="add-icon" (click)="openCreateTaskDialog(TaskStatus.DONE)">add</mat-icon>
             </p>
             <mat-divider class="task-divider" />
             <div 
@@ -83,7 +93,10 @@
                 (cdkDropListDropped)="drop($event)">
                 @for (task of doneTasks; track task.id) {
                     <div class="task-item" cdkDrag>
-                        <app-task [task]="task" />
+                        <app-task 
+                            [userStoryId]="userStory?.id!"
+                            [task]="task" 
+                            (updateUserStoryList)="updateUserStoryList.emit()"/>
                     </div>
                 }
             </div>

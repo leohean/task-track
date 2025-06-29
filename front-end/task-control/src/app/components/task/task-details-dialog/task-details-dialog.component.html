@@ -2,9 +2,9 @@
     <div class="status-bar {{ this.taskForm.value.status }}"></div>
     <h2 mat-dialog-title class="dialog-title">
         @if (isEditingTitle) {
-            <input class="edit-input" formControlName="name" name="name">
+            <input class="edit-input" formControlName="title" name="title">
         } @else {
-            <span>{{ task?.name }}</span>
+            <span>{{ taskForm.value.title || task?.title }}</span>
         }
         <button mat-icon-button class="edit-button" color="primary" (click)="editTitle()">
             @if (isEditingTitle) {

@@ -22,4 +22,30 @@
 </mat-toolbar>
 <p class="page-title">
     {{ pageTitle }}
+    @if (breadcrumbs.at(-1)?.label === 'Sprints') {
+        <span class="aditional-action">
+            <button mat-fab extended color="primary" (click)="openAddUsersDialog()">
+                <mat-icon>group_add</mat-icon>
+                <span>Adicionar usuários</span>
+            </button>
+        </span>
+    }
 </p>
+@if (breadcrumbs.length > 1) {
+    <nav class="breadcrumbs" [class.with-button]="breadcrumbs.at(-1)?.label === 'Sprints'">
+        <ol class="breadcrumb-list">
+            @for (crumb of breadcrumbs; track crumb.url; let last = $last) {
+                <li class="breadcrumb-item">
+                    @if (crumb.active) {
+                        <span class="breadcrumb-text active">{{ crumb.label }}</span>
+                    } @else {
+                        <a [routerLink]="crumb.url" class="breadcrumb-link">{{ crumb.label }}</a>
+                    }
+                    @if (!last) {
+                        <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+                    }
+                </li>
+            }
+        </ol>
+    </nav>
+}

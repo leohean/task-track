@@ -4,7 +4,7 @@
             <app-card 
                 [title]="sprint.name" 
                 [subtitle]="sprint.description" 
-                [createdBy]="sprint.createdBy!" 
+                [createdBy]="sprint.createdBy?.name!" 
                 [createdAt]="sprint.createdAt!"
                 (onViewClick)="accessSprint(sprint)"
                 (onEditClick)="editSprint(sprint)"

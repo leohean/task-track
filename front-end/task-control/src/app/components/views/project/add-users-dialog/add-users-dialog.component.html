@@ -1,0 +1,99 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title class="dialog-title">
+    Adicionar Usuários ao Projeto
+  </h2>
+
+  <mat-dialog-content class="dialog-content">
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar usuários</mat-label>
+        <input 
+          type="text" 
+          matInput 
+          [formControl]="searchControl"
+          placeholder="Digite o nome ou email do usuário"
+          [matAutocomplete]="auto">
+        <mat-icon matSuffix>search</mat-icon>
+        @if (isLoading) {
+          <mat-spinner matSuffix diameter="20"></mat-spinner>
+        }
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onUserSelected($event.option.value)">
+          @for (user of filteredUsers | async; track user.userId) {
+            <mat-option [value]="user">
+              <div class="user-option">
+                <div class="user-avatar">
+                  {{ getInitials(user.userName) }}
+                </div>
+                <div class="user-info">
+                  <div class="user-name">{{ user.userName }}</div>
+                  <div class="user-email">{{ user.userEmail }}</div>
+                </div>
+              </div>
+            </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    @if (selectedUsers.length > 0) {
+      <div class="selected-users-section">
+        <h3 class="section-title">Usuários selecionados</h3>
+        <div class="selected-users-list">
+          @for (user of selectedUsers; track user.userId) {
+            <div class="custom-chip">
+              <div class="chip-avatar">
+                {{ getInitials(user.userName) }}
+              </div>
+              <span class="chip-text">{{ user.userName }}</span>
+              <button class="chip-remove" (click)="removeUser(user)">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (data.currentUsers.length > 0) {
+      <div class="current-users-section">
+        <h3 class="section-title">Usuários já no projeto</h3>
+        <div class="current-users-list">
+          @for (user of data.currentUsers; track user.userId) {
+            <div class="current-user-item">
+              <div class="user-avatar">
+                {{ getInitials(user.userName) }}
+              </div>
+              <div class="user-info">
+                <div class="user-name">{{ user.userName }}</div>
+                <div class="user-email">{{ user.userEmail }}</div>
+              </div>
+              <div class="user-actions">
+                <button 
+                  class="remove-user-btn" 
+                  mat-icon-button 
+                  color="warn" 
+                  (click)="removeCurrentUser(user)"
+                  matTooltip="Remover usuário do projeto">
+                  <mat-icon>person_remove</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onCancel()">
+      Cancelar
+    </button>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="onConfirm()"
+      [disabled]="selectedUsers.length === 0">
+      Adicionar {{ selectedUsers.length }} usuário{{ selectedUsers.length !== 1 ? 's' : '' }}
+    </button>
+  </mat-dialog-actions>
+</div> 

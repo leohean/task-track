@@ -13,7 +13,7 @@
         <div class="user-stories-container">
             <mat-accordion class="user-stories-accordion" multi cdkDropList (cdkDropListDropped)="drop($event)">
                 @for (userStory of userStories; track userStory.id) {
-                <app-user-story [userStory]="userStory" />
+                    <app-user-story [userStory]="userStory" (updateUserStoryList)="updateUserStoryList()" />
                 }
             </mat-accordion>
         </div>

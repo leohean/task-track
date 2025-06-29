@@ -1,0 +1,226 @@
+.dialog-container {
+  .dialog-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    
+    .title-icon {
+      color: #3B82F6;
+    }
+  }
+
+  .dialog-content {
+    padding: 1rem 1.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+
+    .search-section {
+      margin-bottom: 1.5rem;
+
+      .search-field {
+        width: 100%;
+      }
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #374151;
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .selected-users-section {
+      margin-bottom: 1.5rem;
+
+      .selected-users-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+
+    .current-users-section {
+      .current-users-list {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #E5E7EB;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+
+        .current-user-item {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem;
+          border-bottom: 1px solid #F3F4F6;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #9CA3AF;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-right: 0.75rem;
+          }
+
+          .user-info {
+            flex: 1;
+
+            .user-name {
+              font-size: 0.875rem;
+              font-weight: 500;
+              color: #374151;
+              margin-bottom: 0.25rem;
+            }
+
+            .user-email {
+              font-size: 0.75rem;
+              color: #6B7280;
+            }
+          }
+
+          .user-status {
+            .status-badge {
+              background-color: #FEF3C7;
+              color: #92400E;
+              padding: 0.25rem 0.5rem;
+              border-radius: 0.25rem;
+              font-size: 0.75rem;
+              font-weight: 500;
+            }
+          }
+
+          .user-actions {
+            .remove-user-btn {
+              color: #DC2626;
+              transition: all 0.2s ease;
+              
+              &:hover {
+                background-color: #FEE2E2;
+                color: #B91C1C;
+              }
+              
+              mat-icon {
+                font-size: 20px;
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dialog-actions {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+// Estilos para as opções do autocomplete
+.user-option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #3B82F6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 0.75rem;
+  }
+
+  .user-info {
+    flex: 1;
+
+    .user-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.25rem;
+    }
+
+    .user-email {
+      font-size: 0.75rem;
+      color: #6B7280;
+    }
+  }
+}
+
+.custom-chip {
+  background-color: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  margin: 2px;
+  gap: 8px;
+  cursor: default;
+  
+  .chip-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #3B82F6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .chip-text {
+    font-size: 0.875rem;
+    color: #1E40AF;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  
+  .chip-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6B7280;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #E5E7EB;
+      color: #374151;
+    }
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+} 

@@ -46,15 +46,15 @@ $circle-text-color: #F3F4F6;
         border-radius: 4px 0 0 4px;
     }
 
-    .todo {
+    .TO_DO {
         background-color: $todo-color;
     }
 
-    .in_progress { 
+    .IN_PROGRESS { 
         background-color: $in_progress-color;
     }
 
-    .done {
+    .DONE {
         background-color: $done-color;
     }
 
@@ -67,6 +67,14 @@ $circle-text-color: #F3F4F6;
                 white-space: nowrap;
                 overflow: hidden;
                 font-size: 1.5rem;
+                position: relative;
+
+                .delete-button {
+                    position: absolute;
+                    top: 50%;
+                    right: -10%;
+                    transform: translate(-50%, -50%);
+                }
             }
         }
     }   

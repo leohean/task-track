@@ -52,11 +52,10 @@ export class SprintComponent {
   }
 
   private getSprints(projectId: number, page: number) {
-    let offset: number = (page - 1) * 8;
-    this.sprintService.get(projectId).subscribe((sprints) => {
-      this.sprints = sprints.slice(offset, offset + 8);
-      this.totalPages = Math.ceil(sprints.length / 8);
-      this.currentPage = page;
+    this.sprintService.get(projectId, page - 1).subscribe((sprints) => {
+      this.sprints = sprints.content;
+      this.totalPages = sprints.totalPages;
+      this.currentPage = sprints.number + 1;
     });
   }
 

@@ -72,7 +72,8 @@ export class ProjectComponent {
       message: `Tem certeza que deseja excluir o projeto "${project.name}"?<br>Esta ação não pode ser desfeita.`
     }).subscribe(confirmed => {
       if (confirmed) {
-        this.projectService.delete(project.id!).subscribe(() => {
+        this.projectService.delete(project.id!).subscribe((response) => {
+          console.log(response);
           const config: MatSnackBarConfig = {
             duration: 3000,
             horizontalPosition: "right",
@@ -87,11 +88,10 @@ export class ProjectComponent {
   }
 
   private getProjects(page: number) {
-    let offset: number = (page - 1) * 8;
-    this.projectService.get().subscribe((projects) => {
-      this.projects = projects.slice(offset, offset + 8);
-      this.totalPages = Math.ceil(projects.length / 8);
-      this.currentPage = page;
+    this.projectService.get(page - 1).subscribe((projects) => {
+      this.projects = projects.content;
+      this.totalPages = projects.totalPages;
+      this.currentPage = projects.number + 1;
     });
   }
 }

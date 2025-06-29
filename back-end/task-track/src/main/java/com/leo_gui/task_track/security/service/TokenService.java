@@ -24,6 +24,9 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("task-track")
                     .withSubject(user.getEmail())
+                    .withClaim("id", user.getId())
+                    .withClaim("name", user.getName())
+                    .withClaim("role", user.getRole().name())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;

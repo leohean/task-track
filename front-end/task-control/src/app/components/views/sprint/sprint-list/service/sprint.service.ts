@@ -3,22 +3,23 @@ import { environment } from '../../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Sprint } from '../../../../../interfaces/sprint.interface';
 import { Observable } from 'rxjs';
+import { Pageable } from '../../../../../interfaces/pageable.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SprintService {
 
-  private baseUrl = environment.apiUrl + 'sprints';
+  private baseUrl = environment.apiUrl + 'sprint';
 
   constructor(private http: HttpClient) { }
 
   create(sprint:Sprint): Observable<Sprint> {
-    return this.http.post<Sprint>(`${this.baseUrl}`, sprint);
+    return this.http.post<Sprint>(`${this.baseUrl}/${sprint.projectId}`, sprint);
   }
 
-  get(projectId: number): Observable<Sprint[]> {
-    return this.http.get<Sprint[]>(`${this.baseUrl}?projectId=${projectId}`);
+  get(projectId: number, page: number): Observable<Pageable<Sprint>> {
+    return this.http.get<Pageable<Sprint>>(`${this.baseUrl}/project/${projectId}?page=${page}&size=8`);
   }
 
   getById(id: number): Observable<Sprint> {
@@ -29,7 +30,7 @@ export class SprintService {
     return this.http.put<Sprint>(`${this.baseUrl}/${id}`, sprint);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  delete(id: number): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 }

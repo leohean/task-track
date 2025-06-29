@@ -1,5 +1,5 @@
 export interface BasicUser {
-    id: number;
-    name: string;
-    email: string;
+    userId: number;
+    userName: string;
+    userEmail: string;
 }

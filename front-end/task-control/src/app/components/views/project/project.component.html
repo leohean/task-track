@@ -4,7 +4,7 @@
             <app-card 
                 [title]="project.name" 
                 [subtitle]="project.description" 
-                [createdBy]="project.createdBy!" 
+                [createdBy]="project.createdBy?.name!" 
                 [createdAt]="project.createdAt!"
                 (onViewClick)="accessProject(project)"
                 (onEditClick)="editProject(project!)"

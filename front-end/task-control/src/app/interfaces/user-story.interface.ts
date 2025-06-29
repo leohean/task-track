@@ -1,10 +1,14 @@
 import { Task } from "./task.interface";
 
 export interface UserStory {
-    id: number;
-    name: string;
+    id?: number;
+    title: string;
     description: string;
-    order: number;
+    storyOrder: number;
     sprintId: number;
+    createdAt?: Date;
+    createdBy?: string;
+    lastUpdateAt?: Date;
+    lastUpdateBy?: string;
     tasks: Task[];
 }

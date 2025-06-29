@@ -19,6 +19,7 @@ import { CreateUserStoryDialogService } from './user-story/create-user-story-dia
     MaterialModule, 
     UserStoryComponent, 
     CdkDropList, 
+    CdkDrag,
     NoEntityFoundComponent
   ],
   templateUrl: './sprint-details.component.html',
@@ -58,8 +59,8 @@ export class SprintDetailsComponent {
   }
 
   getUserStories() {
-    this.userStoryService.get(this.sprintId!).subscribe((userStories) => {
-      this.userStories = userStories.sort((a, b) => a.order - b.order);
+    this.userStoryService.get(this.sprintId!, 0).subscribe((userStories) => {
+      this.userStories = userStories.content.sort((a, b) => a.storyOrder - b.storyOrder);
     });
   }
 
@@ -73,7 +74,7 @@ export class SprintDetailsComponent {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<UserStory[]>) {
     moveItemInArray(this.userStories, event.previousIndex, event.currentIndex);
 
     this.reOrderUserStories(this.userStories);
@@ -81,11 +82,11 @@ export class SprintDetailsComponent {
 
   reOrderUserStories(userStories: UserStory[]) {
     userStories.forEach((userStory, index) => {
-      userStory.order = index;
+      userStory.storyOrder = index;
     });
 
     userStories.forEach((userStory) => {
-      this.userStoryService.update(userStory.id, userStory).subscribe({
+      this.userStoryService.update(userStory.id!, userStory).subscribe({
         error: (error) => {
           this.getUserStories();
         }
@@ -96,8 +97,12 @@ export class SprintDetailsComponent {
   openCreateUserStoryDialog() {
     this.createUserStoryDialogService.openCreateDialog(this.sprintId!).subscribe((userStory) => {
       if (userStory) {
-        this.userStories.push(userStory);
+        this.getUserStories()
       }
     });
+  }
+
+  updateUserStoryList() {
+    this.getUserStories()
   }
 }
