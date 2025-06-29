@@ -6,9 +6,12 @@ import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.sprint.dto.SprintDTOMapper;
 import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.sprint.repository.SprintRepository;
+import com.leo_gui.task_track.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,10 +29,17 @@ public class SprintService {
     private SprintDTOMapper sprintDTOMapper;
 
     public Sprint createSprint(Integer projectId, Sprint sprint){
+
         Project project = projectService.getProject(projectId);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
+
         sprint.setProject(project);
         sprint.setCreatedAt(LocalDateTime.now());
+        sprint.setCreatedBy(user);
         sprint.setLastUpdateAt(LocalDateTime.now());
+        sprint.setLastUpdateBy(user);
 
         Sprint saveSprint = sprintRepository.save(sprint);
         return saveSprint;

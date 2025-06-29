@@ -6,6 +6,7 @@ import com.leo_gui.task_track.project.repository.ProjectRepository;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.sprint.dto.SprintSimpleDTOMapper;
 import com.leo_gui.task_track.sprint.repository.SprintRepository;
+import com.leo_gui.task_track.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,11 +29,18 @@ public class ProjectService {
     private SprintSimpleDTOMapper sprintSimpleDTOMapper;
 
     public Project createProject(ProjectDTO dto){
+
         Project project = new Project();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
+
         project.setName(dto.name());
         project.setDescription(dto.description());
         project.setCreatedAt(LocalDateTime.now());
+        project.setCreatedBy(user);
         project.setLastUpdateAt(LocalDateTime.now());
+        project.setLastUpdateBy(user);
 
         return projectRepository.save(project);
     }

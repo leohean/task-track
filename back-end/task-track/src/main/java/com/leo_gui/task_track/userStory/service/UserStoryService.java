@@ -6,6 +6,7 @@ import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.sprint.service.SprintService;
 import com.leo_gui.task_track.task.model.Task;
 import com.leo_gui.task_track.task.service.TaskService;
+import com.leo_gui.task_track.user.model.User;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTOMapper;
 import com.leo_gui.task_track.userStory.model.UserStory;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +41,13 @@ public class UserStoryService {
 
     @Transactional
     public void createUserStory(Integer sprintId, UserStory userStory) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
+
         userStory.setCreatedAt(LocalDateTime.now());
+        userStory.setCreatedBy(user);
         userStory.setLastUpdateAt(LocalDateTime.now());
+        userStory.setLastUpdateBy(user);
 
         Integer storyOrder = userStoryRepository.getMaxStoryOrderBySprintId(sprintId);
 
@@ -60,6 +68,7 @@ public class UserStoryService {
         for (Task task : userStory.getTasks()) { 
             taskService.updateTask(task.getId(), task);
         }
+
     }
 
     @Transactional

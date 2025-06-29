@@ -29,6 +29,7 @@ public class Project {
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
 
-    @Column(name = "last_update_by")
-    private Integer lastUpdateBy;
+    @ManyToOne
+    @JoinColumn(name = "last_update_by")
+    private User lastUpdateBy;
 }

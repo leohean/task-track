@@ -41,8 +41,9 @@ public class UserStory {
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
 
-    @Column(name = "last_update_by")
-    private Integer lastUpdateBy;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "last_update_by", nullable = false)
+    private User lastUpdateBy;
 
     @OneToMany(mappedBy = "userStory", cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();

@@ -14,5 +14,5 @@ public record UserStorySimpleDTO (
     LocalDateTime createdAt,
     User createdBy,
     LocalDateTime lastUpdateAt,
-    Integer lastUpdateBy
+    User lastUpdateBy
 ) {}

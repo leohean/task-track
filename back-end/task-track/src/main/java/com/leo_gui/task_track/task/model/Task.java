@@ -25,7 +25,10 @@ public class Task {
     private Double estimatedTime;
     private Double spentTime;
     private Integer taskOrder;
-    private Integer idResponsible;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_responsible", nullable = false)
+    private User idResponsible;
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
@@ -40,6 +43,7 @@ public class Task {
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
 
-    @Column(name = "last_update_by")
-    private Integer lastUpdateBy;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "last_update_by", nullable = false)
+    private User lastUpdateBy;
 }

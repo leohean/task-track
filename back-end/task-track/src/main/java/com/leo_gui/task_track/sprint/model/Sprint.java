@@ -36,8 +36,9 @@ public class Sprint {
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
 
-    @Column(name = "last_update_by")
-    private Integer lastUpdateBy;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "last_update_by", nullable = false)
+    private User lastUpdateBy;
 
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserStory> userStories;

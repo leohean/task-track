@@ -15,7 +15,7 @@ public record SprintDTO(
         LocalDateTime createdAt,
         User createdBy,
         LocalDateTime lastUpdateAt,
-        Integer lastUpdateBy,
+        User lastUpdateBy,
         List<UserStoryDTO> userStoriesDTO
 ) {
 }

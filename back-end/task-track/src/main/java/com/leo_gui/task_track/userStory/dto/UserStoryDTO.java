@@ -18,7 +18,7 @@ public record UserStoryDTO(
         LocalDateTime createdAt,
         User createdBy,
         LocalDateTime lastUpdateAt,
-        Integer lastUpdateBy,
+        User lastUpdateBy,
         List<TaskCompleteDTO> tasks
 ) {
 }

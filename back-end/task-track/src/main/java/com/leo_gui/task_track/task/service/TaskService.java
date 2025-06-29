@@ -8,6 +8,8 @@ import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.service.UserStoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,11 +24,17 @@ public class TaskService {
     UserStoryService userStoryService;
 
     public Task createTask(Integer userStoryId, Task task){
+
         UserStory us = userStoryService.getUserStory(userStoryId);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User)authentication.getPrincipal();
 
         task.setUserStory(us);
         task.setCreatedAt(LocalDateTime.now());
+        task.setCreatedBy(user);
         task.setLastUpdateAt(LocalDateTime.now());
+        task.setLastUpdateBy(user);
 
         return taskRepository.save(task);
     }
