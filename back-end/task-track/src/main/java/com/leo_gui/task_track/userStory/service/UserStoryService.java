@@ -1,11 +1,19 @@
 package com.leo_gui.task_track.userStory.service;
 
+import com.leo_gui.task_track.sprint.dto.SprintDTO;
+import com.leo_gui.task_track.sprint.dto.SprintSimpleDTOMapper;
+import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.sprint.service.SprintService;
 
+import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
+import com.leo_gui.task_track.userStory.dto.UserStorySimpleDTOMapper;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.repository.UserStoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,6 +25,9 @@ import java.util.Optional;
 public class UserStoryService {
     @Autowired
     private UserStoryRepository userStoryRepository;
+
+    @Autowired
+    private UserStorySimpleDTOMapper userStorySimpleDTOMapper;
 
     @Autowired
     private SprintService sprintService;
@@ -43,7 +54,7 @@ public class UserStoryService {
         userStoryRepository.deleteById(id);
     }
 
-    public List<UserStory> findAllUserStoriesBySprint(Integer sprintId) {
-        return userStoryRepository.findAllBySprintId(sprintId);
+    public Page<UserStoryDTO> findAllUserStoriesBySprint(Sprint sprint, Pageable page) {
+        return userStoryRepository.findAllBySprint(sprint, page).map(userStorySimpleDTOMapper);
     }
 }

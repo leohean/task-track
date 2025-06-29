@@ -1,5 +1,6 @@
 package com.leo_gui.task_track.project.service;
 
+import com.leo_gui.task_track.project.dto.ProjectDTO;
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.project.repository.ProjectRepository;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
@@ -8,6 +9,8 @@ import com.leo_gui.task_track.sprint.repository.SprintRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,6 +39,15 @@ public class ProjectService {
         Optional<Project> foundProject = projectRepository.findById(id);
         return foundProject.isPresent() ? foundProject.get() : null;
     }
+
+    /*public Project updateProject(Integer id, ProjectDTO projectDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        Optional<Project> foundProject = projectRepository.findById(id);
+
+        return foundProject.isPresent() ? projectRepository.save(project) : null;
+    }*/
 
     public void deleteProjectById(Integer id){
         projectRepository.deleteById(id);

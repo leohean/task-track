@@ -1,5 +1,10 @@
 package com.leo_gui.task_track.userStory.controller;
 
+import com.leo_gui.task_track.project.model.Project;
+import com.leo_gui.task_track.sprint.dto.SprintDTO;
+import com.leo_gui.task_track.sprint.model.Sprint;
+import com.leo_gui.task_track.sprint.service.SprintService;
+import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.service.UserStoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,6 +12,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserStoryController {
     @Autowired
     private UserStoryService userStoryService;
+
+    @Autowired
+    private SprintService sprintService;
 
     @PostMapping("{sprintId}")
     @Operation(description = "Cria uma user story nova.")
@@ -35,9 +45,10 @@ public class UserStoryController {
         return ResponseEntity.ok().body("User story deletada com sucesso!");
     }
 
-    @GetMapping("{sprintId}")
-    @Operation(description = "Retorna de forma paginada as UserStories/Tasks de uma sprint.")
-    public ResponseEntity<List<UserStory>> getUserStoriesBySprint(@PathVariable Integer sprintId){
-        return ResponseEntity.ok().body(userStoryService.findAllUserStoriesBySprint(sprintId));
+    @Operation(description = "Retorna de forma paginada as user stories de uma sprint.")
+    @GetMapping("{id}/userstories")
+    public ResponseEntity<Page<UserStoryDTO>> getUserStoriesBySprint(@PathVariable Integer id, Pageable page){
+        Sprint sprint= sprintService.getSprint(id);
+        return ResponseEntity.ok().body(userStoryService.findAllUserStoriesBySprint(sprint, page));
     }
 }
