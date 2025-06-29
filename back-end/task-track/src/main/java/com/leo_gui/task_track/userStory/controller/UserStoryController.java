@@ -4,7 +4,9 @@ import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.sprint.service.SprintService;
+import com.leo_gui.task_track.user.model.User;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
+import com.leo_gui.task_track.userStory.dto.UserStorySimpleDTO;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.service.UserStoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,5 +52,24 @@ public class UserStoryController {
     public ResponseEntity<Page<UserStoryDTO>> getUserStoriesBySprint(@PathVariable Integer id, Pageable page){
         Sprint sprint= sprintService.getSprint(id);
         return ResponseEntity.ok().body(userStoryService.findAllUserStoriesBySprint(sprint, page));
+    }
+
+    @Operation(description = "Retorna a user story com o Id requisitado.")
+    @GetMapping("{id}")
+    public ResponseEntity<UserStorySimpleDTO> getUserStoryById(@PathVariable Integer id){
+        UserStory userStory = userStoryService.getUserStory(id);
+        if (userStory == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(new UserStorySimpleDTO(
+                userStory.getId(),
+                userStory.getTitle(),
+                userStory.getDescription(),
+                userStory.getStoryOrder(),
+                userStory.getCreatedAt(),
+                userStory.getCreatedBy(),
+                userStory.getLastUpdateAt(),
+                userStory.getLastUpdateBy()));
     }
 }
