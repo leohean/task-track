@@ -1,10 +1,16 @@
 package com.leo_gui.task_track.task.service;
 
 import com.leo_gui.task_track.task.model.Task;
+import com.leo_gui.task_track.task.model.TaskStatus;
 import com.leo_gui.task_track.task.repository.TaskRepository;
+import com.leo_gui.task_track.user.model.User;
+import com.leo_gui.task_track.userStory.model.UserStory;
+import com.leo_gui.task_track.userStory.service.UserStoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -12,7 +18,17 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public Task createTask(Task task){
+    @Autowired
+    UserStoryService userStoryService;
+
+    public Task createTask(Integer userStoryId, Task task){
+        UserStory us = userStoryService.getUserStory(userStoryId);
+
+        task.setUserStory(us);
+        task.setCreatedAt(LocalDateTime.now());
+        task.setLastUpdateAt(LocalDateTime.now());
+        task.setStatus(TaskStatus.TO_DO);
+
         return taskRepository.save(task);
     }
 

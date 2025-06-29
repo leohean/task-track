@@ -55,4 +55,9 @@ public class UserStoryService {
     public Page<UserStoryDTO> findAllUserStoriesBySprint(Sprint sprint, Pageable page) {
         return userStoryRepository.findAllBySprint(sprint, page).map(userStoryDTOMapper);
     }
+
+    public UserStory getUserStory(Integer id) {
+        Optional<UserStory> foundUserStory = userStoryRepository.findById(id);
+        return foundUserStory.orElse(null);
+    }
 }

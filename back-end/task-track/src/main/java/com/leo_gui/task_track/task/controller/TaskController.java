@@ -14,9 +14,9 @@ public class TaskController {
     private TaskService taskService;
 
     @Operation(description = "Cria uma task nova.")
-    @PostMapping("")
-    public ResponseEntity createTask(@RequestBody Task task) {
-        return ResponseEntity.ok().body(taskService.createTask(task));
+    @PostMapping("{userStoryId}")
+    public ResponseEntity createTask(@PathVariable Integer userStoryId, @RequestBody Task task) {
+        return ResponseEntity.ok().body(taskService.createTask(userStoryId, task));
     }
 
     @PutMapping
