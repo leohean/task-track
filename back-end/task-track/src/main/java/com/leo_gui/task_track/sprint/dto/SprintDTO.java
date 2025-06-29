@@ -1,5 +1,6 @@
 package com.leo_gui.task_track.sprint.dto;
 
+import com.leo_gui.task_track.user.model.User;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
 
 import jakarta.persistence.Column;
@@ -12,7 +13,7 @@ public record SprintDTO(
         String name,
         String description,
         LocalDateTime createdAt,
-        Integer createdBy,
+        User createdBy,
         LocalDateTime lastUpdateAt,
         Integer lastUpdateBy,
         List<UserStoryDTO> userStoriesDTO

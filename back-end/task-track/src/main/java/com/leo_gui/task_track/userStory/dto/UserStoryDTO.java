@@ -4,6 +4,7 @@ import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.task.dto.TaskCompleteDTO;
 import com.leo_gui.task_track.task.dto.TaskDTO;
 
+import com.leo_gui.task_track.user.model.User;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public record UserStoryDTO(
         String description,
         Integer storyOrder,
         LocalDateTime createdAt,
-        Integer createdBy,
+        User createdBy,
         LocalDateTime lastUpdateAt,
         Integer lastUpdateBy,
         List<TaskCompleteDTO> tasks

@@ -3,6 +3,7 @@ package com.leo_gui.task_track.task.dto;
 import java.time.LocalDateTime;
 
 import com.leo_gui.task_track.task.model.TaskStatus;
+import com.leo_gui.task_track.user.model.User;
 
 public record TaskCompleteDTO(
         Integer id,
@@ -14,7 +15,7 @@ public record TaskCompleteDTO(
         Integer taskOrder,
         Integer idResponsible,
         LocalDateTime createdAt,
-        Integer createdBy,
+        User createdBy,
         LocalDateTime lastUpdateAt,
         Integer lastUpdateBy
 ) {

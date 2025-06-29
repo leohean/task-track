@@ -1,6 +1,7 @@
 package com.leo_gui.task_track.sprint.model;
 
 import com.leo_gui.task_track.project.model.Project;
+import com.leo_gui.task_track.user.model.User;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,8 +29,9 @@ public class Sprint {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "created_by")
-    private Integer createdBy;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_by", nullable = false)
+    private User createdBy;
 
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;

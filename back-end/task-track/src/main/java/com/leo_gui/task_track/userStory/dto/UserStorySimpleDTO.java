@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.leo_gui.task_track.task.dto.TaskCompleteDTO;
+import com.leo_gui.task_track.user.model.User;
 
 public record UserStorySimpleDTO (
     Integer id,
@@ -11,7 +12,7 @@ public record UserStorySimpleDTO (
     String description,
     Integer storyOrder,
     LocalDateTime createdAt,
-    Integer createdBy,
+    User createdBy,
     LocalDateTime lastUpdateAt,
     Integer lastUpdateBy
 ) {}
