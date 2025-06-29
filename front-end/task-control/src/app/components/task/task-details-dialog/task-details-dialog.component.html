@@ -31,10 +31,12 @@
                 </mat-form-field>
                 <mat-form-field class="task-field" appearance="outline">
                     <mat-label>Responsável </mat-label>
-                    <mat-select formControlName="responsibleUser" name="responsibleUser">
-                        <mat-option [value]="task?.responsibleUser">
-                            {{ task?.responsibleUser?.name }}
-                        </mat-option>
+                    <mat-select formControlName="responsible" name="responsible" [compareWith]="compareUsers">
+                        @for (user of projectUsers; track user.id) {
+                            <mat-option [value]="user">
+                                {{ user.name }}
+                            </mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="task-field" appearance="outline">

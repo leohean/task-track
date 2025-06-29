@@ -6,6 +6,7 @@
                 [subtitle]="project.description" 
                 [createdBy]="project.createdBy?.name!" 
                 [createdAt]="project.createdAt!"
+                [showDeleteButton]="canDeleteProject(project)"
                 (onViewClick)="accessProject(project)"
                 (onEditClick)="editProject(project!)"
                 (onDeleteClick)="deleteProject(project)">

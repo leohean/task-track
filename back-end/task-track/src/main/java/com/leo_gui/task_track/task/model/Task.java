@@ -26,9 +26,9 @@ public class Task {
     private Double spentTime;
     private Integer taskOrder;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_responsible", nullable = false)
-    private User idResponsible;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "id_responsible", nullable = true)
+    private User responsible;
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;

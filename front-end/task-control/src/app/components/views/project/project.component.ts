@@ -10,6 +10,8 @@ import { DeleteConfirmationService } from '../../shared/delete-confirmation-dial
 import { CreateProjectDialogService } from './create-project-dialog/create-project-dialog.service';
 import { NoEntityFoundComponent } from '../../no-entity-found/no-entity-found.component';
 import { MaterialModule } from '../../../shared/material.module';
+import { AuthService } from '../../../services/auth.service';
+import { Role } from '../../../enums/role.enum';
 
 @Component({
   selector: 'app-project',
@@ -35,7 +37,8 @@ export class ProjectComponent {
     private snackBarService: MatSnackBar,
     private router: Router,
     private deleteConfirmationService: DeleteConfirmationService,
-    private createProjectDialog: CreateProjectDialogService
+    private createProjectDialog: CreateProjectDialogService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -93,5 +96,16 @@ export class ProjectComponent {
       this.totalPages = projects.totalPages;
       this.currentPage = projects.number + 1;
     });
+  }
+
+  canDeleteProject(project: Project) {
+    const payload = this.authService.decodeToken(this.authService.getToken() ?? "");
+    if (payload) {
+      const userId = Number(payload["id"])
+      const role = payload["role"] as Role
+
+      return role === Role.ADMIN || project.createdBy?.id === userId;
+    }
+    return false;
   }
 }

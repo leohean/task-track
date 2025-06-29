@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,9 @@ public class TaskService {
         task.setCreatedBy(user);
         task.setLastUpdateAt(LocalDateTime.now());
         task.setLastUpdateBy(user);
+        if (Objects.isNull(task.getResponsible())) {
+            task.setResponsible(user);
+        }
 
         return taskRepository.save(task);
     }
@@ -51,6 +55,10 @@ public class TaskService {
             existingTask.setLastUpdateAt(LocalDateTime.now());
             existingTask.setSpentTime(task.getSpentTime());
             existingTask.setEstimatedTime(task.getEstimatedTime());
+            if (Objects.nonNull(task.getResponsible())) {
+                existingTask.setResponsible(task.getResponsible());
+            }
+
             taskRepository.save(existingTask);
         }
     }

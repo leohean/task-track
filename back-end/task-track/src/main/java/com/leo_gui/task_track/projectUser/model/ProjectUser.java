@@ -3,7 +3,9 @@ package com.leo_gui.task_track.projectUser.model;
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.user.model.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;

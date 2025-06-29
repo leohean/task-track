@@ -1,5 +1,6 @@
 import { TaskStatus } from "../enums/task-status.enum";
 import { BasicUser } from "./basic-user";
+import { User } from "./user.interface";
 
 export interface Task {
     id: number;
@@ -9,6 +10,6 @@ export interface Task {
     estimatedTime: number;
     spentTime: number;
     status: TaskStatus;
-    responsibleUser: BasicUser;
+    responsible: User;
 }
 

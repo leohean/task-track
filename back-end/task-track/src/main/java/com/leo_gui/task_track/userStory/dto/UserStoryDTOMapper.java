@@ -30,7 +30,7 @@ public class UserStoryDTOMapper implements Function<UserStory, UserStoryDTO> {
                     task.getEstimatedTime(),
                     task.getSpentTime(),
                     task.getTaskOrder(),
-                    task.getIdResponsible(),
+                    task.getResponsible(),
                     task.getCreatedAt(),
                     task.getCreatedBy(),
                     task.getLastUpdateAt(),

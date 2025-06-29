@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,9 @@ import { TaskStatus } from '../../../enums/task-status.enum';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Sprint } from '../../../interfaces/sprint.interface';
 import { TaskService } from '../service/task.service';
+import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-task-details-dialog',
@@ -21,13 +24,15 @@ import { TaskService } from '../service/task.service';
   templateUrl: './task-details-dialog.component.html',
   styleUrl: './task-details-dialog.component.scss'
 })
-export class TaskDetailsDialogComponent {
+export class TaskDetailsDialogComponent implements OnInit {
 
   task: Task | null = null;
   selectedStatus: TaskStatus | null = null;
   userStoryId: number | null = null;
   taskForm!: FormGroup;
   isEditMode: boolean = false;
+  projectUsers: User[] = [];
+  currentUser: User | null = null;
 
   isEditingTitle = false;
 
@@ -41,6 +46,8 @@ export class TaskDetailsDialogComponent {
     private formBuilder: FormBuilder, 
     public dialogRef: MatDialogRef<TaskDetailsDialogComponent>,
     private taskService: TaskService,
+    private userService: UserService,
+    private authService: AuthService,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { userStoryId: number, task: Task, selectedStatus: TaskStatus | null }
   ) {
@@ -51,18 +58,77 @@ export class TaskDetailsDialogComponent {
   }
 
   ngOnInit() {
+    this.loadProjectUsers();
+    this.setCurrentUser();
+    this.initializeForm();
+  }
+
+  private loadProjectUsers() {
+    // Extrair projectId da URL ou passar como parâmetro
+    const projectId = this.extractProjectIdFromUrl();
+    if (projectId) {
+      this.userService.getUsersByProjectAsUser(projectId).subscribe({
+        next: (users) => {
+          this.projectUsers = users;
+        },
+        error: (error) => {
+          console.error('Erro ao carregar usuários do projeto:', error);
+        }
+      });
+    }
+  }
+
+  private setCurrentUser() {
+    const token = this.authService.getToken();
+    if (token) {
+      const payload = this.authService.decodeToken(token);
+      if (payload) {
+        this.currentUser = {
+          id: payload['userId'] || 0,
+          name: payload['name'] || '',
+          email: payload['email'] || '',
+          username: payload['email'] || '',
+          role: payload['role'] || 'USER',
+          accountNonExpired: true,
+          accountNonLocked: true,
+          credentialsNonExpired: true,
+          enabled: true
+        };
+      }
+    }
+  }
+
+  private extractProjectIdFromUrl(): number | null {
+    const url = window.location.pathname;
+    const match = url.match(/\/projects\/(\d+)/);
+    return match ? parseInt(match[1]) : null;
+  }
+
+  private initializeForm() {
+    // Determinar o usuário responsável
+    let responsibleUser = this.task?.responsible;
+    if (!responsibleUser && this.currentUser) {
+      responsibleUser = this.currentUser;
+    }
+
+    console.log(responsibleUser)
+
     this.taskForm = this.formBuilder.group({
       title: [this.task?.title, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: [this.task?.description, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       estimatedTime: [this.task?.estimatedTime, [Validators.required, Validators.min(0)]],
       spentTime: [this.task?.spentTime, [Validators.required, Validators.min(0)]],
-      responsibleUser: [this.task?.responsibleUser],
+      responsible: [responsibleUser, [Validators.required]],
       status: [this.task?.status || this.selectedStatus, [Validators.required]],
     });
 
     if (this.data?.task) {
       this.isEditMode = true;
     }
+  }
+
+  compareUsers(user1: User | null, user2: User | null): boolean {
+    return user1 && user2 ? user1.id === user2.id : user1 === user2;
   }
 
   editTitle() {

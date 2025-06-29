@@ -11,6 +11,8 @@ import { DeleteConfirmationService } from '../../../shared/delete-confirmation-d
 import { CreateSprintDialogService } from './create-sprint-dialog/create-sprint-dialog.service';
 import { NoEntityFoundComponent } from '../../../no-entity-found/no-entity-found.component';
 import { MaterialModule } from '../../../../shared/material.module';
+import { AuthService } from '../../../../services/auth.service';
+import { Role } from '../../../../enums/role.enum';
 
 @Component({
   selector: 'app-sprint',
@@ -37,7 +39,8 @@ export class SprintComponent {
               private route: ActivatedRoute,
               private router: Router,
               private deleteConfirmationService: DeleteConfirmationService,
-              private createSprintDialog: CreateSprintDialogService
+              private createSprintDialog: CreateSprintDialogService,
+              private authService: AuthService
             ) { }
 
   ngOnInit() {
@@ -97,5 +100,16 @@ export class SprintComponent {
         });
       }
     });
+  }
+
+  canDeleteSprint(sprint: Sprint) {
+    const payload = this.authService.decodeToken(this.authService.getToken() ?? "");
+    if (payload) {
+      const userId = Number(payload["id"])
+      const role = payload["role"] as Role
+
+      return role === Role.ADMIN || sprint.createdBy?.id === userId;
+    }
+    return false;
   }
 }

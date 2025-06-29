@@ -13,7 +13,7 @@ public record TaskCompleteDTO(
         Double estimatedTime,
         Double spentTime,
         Integer taskOrder,
-        User idResponsible,
+        User responsible,
         LocalDateTime createdAt,
         User createdBy,
         LocalDateTime lastUpdateAt,
