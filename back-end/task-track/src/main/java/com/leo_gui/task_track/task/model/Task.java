@@ -25,6 +25,9 @@ public class Task {
     private Double spentTime;
     private Integer taskOrder;
     private Integer idResponsible;
+
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;
