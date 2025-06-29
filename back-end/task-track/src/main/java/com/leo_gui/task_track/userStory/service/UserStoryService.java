@@ -4,16 +4,19 @@ import com.leo_gui.task_track.sprint.dto.SprintDTO;
 import com.leo_gui.task_track.sprint.dto.SprintSimpleDTOMapper;
 import com.leo_gui.task_track.sprint.model.Sprint;
 import com.leo_gui.task_track.sprint.service.SprintService;
-
+import com.leo_gui.task_track.task.model.Task;
+import com.leo_gui.task_track.task.service.TaskService;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTO;
 import com.leo_gui.task_track.userStory.dto.UserStoryDTOMapper;
 import com.leo_gui.task_track.userStory.model.UserStory;
 import com.leo_gui.task_track.userStory.repository.UserStoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -30,7 +33,11 @@ public class UserStoryService {
     @Autowired
     private SprintService sprintService;
 
-    public UserStory createUserStory(Integer sprintId, UserStory userStory) {
+    @Autowired
+    @Lazy private TaskService taskService;
+
+    @Transactional
+    public void createUserStory(Integer sprintId, UserStory userStory) {
         userStory.setCreatedAt(LocalDateTime.now());
         userStory.setLastUpdateAt(LocalDateTime.now());
 
@@ -40,12 +47,45 @@ public class UserStoryService {
 
         // Set the sprint for the user story
         userStory.setSprint(sprintService.getSprint(sprintId));
-        return userStoryRepository.save(userStory);
+        userStoryRepository.save(userStory);
+
+        // Update the sprint's last update time
+        Sprint sprint = userStory.getSprint();
+        if (sprint != null) {
+            sprint.setLastUpdateAt(LocalDateTime.now());
+            sprintService.updateSprint(sprint.getId(), sprint);
+        }
+
+        // Update user story tasks
+        for (Task task : userStory.getTasks()) { 
+            taskService.updateTask(task.getId(), task);
+        }
     }
 
-    public UserStory updateUserStory(Integer id, UserStory userStory) {
+    @Transactional
+    public void updateUserStory(Integer id, UserStory userStory) {
         Optional<UserStory> foundUserStory = userStoryRepository.findById(id);
-        return foundUserStory.isPresent() ? userStoryRepository.save(userStory) : null;
+        if (foundUserStory.isPresent()) { 
+            UserStory existingUserStory = foundUserStory.get();
+            existingUserStory.setTitle(userStory.getTitle());
+            existingUserStory.setDescription(userStory.getDescription());
+            existingUserStory.setLastUpdateAt(LocalDateTime.now());
+            userStoryRepository.save(existingUserStory);
+
+            Sprint sprint = userStory.getSprint();
+            if (sprint != null) {
+                sprint.setLastUpdateAt(LocalDateTime.now());
+                sprintService.updateSprint(sprint.getId(), sprint);
+            }
+
+            // Update user story tasks
+            for (Task task : userStory.getTasks()) { 
+                taskService.updateTask(task.getId(), task);
+            }
+        }
+        else {
+            throw new IllegalArgumentException("User story with id " + id + " not found.");
+        }
     }
 
     public void deleteUserStoryById(Integer id) {

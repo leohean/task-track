@@ -16,13 +16,15 @@ public class TaskController {
     @Operation(description = "Cria uma task nova.")
     @PostMapping("{userStoryId}")
     public ResponseEntity createTask(@PathVariable Integer userStoryId, @RequestBody Task task) {
-        return ResponseEntity.ok().body(taskService.createTask(userStoryId, task));
+        taskService.createTask(userStoryId, task);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @Operation(description = "Atualiza a Task")
-    public ResponseEntity updateTask(@RequestBody Task task) {
-        return ResponseEntity.ok().body(taskService.updateTask(task));
+    public ResponseEntity updateTask(@PathVariable Integer id, @RequestBody Task task) {
+        taskService.updateTask(id, task);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(description = "Deleta uma task indicada pelo id fornecido.")

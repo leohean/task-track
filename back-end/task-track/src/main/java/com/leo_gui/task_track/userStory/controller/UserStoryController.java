@@ -31,13 +31,15 @@ public class UserStoryController {
     @PostMapping("{sprintId}")
     @Operation(description = "Cria uma user story nova.")
     public ResponseEntity createUserStory(@PathVariable Integer sprintId, @RequestBody UserStory userStory) {
-        return ResponseEntity.ok().body(userStoryService.createUserStory(sprintId, userStory));
+        userStoryService.createUserStory(sprintId, userStory);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("{id}")
     @Operation(description = "Atualiza a Sprint.")
     public ResponseEntity updateUserStory(@PathVariable Integer id, @RequestBody UserStory userStory) {
-        return ResponseEntity.ok().body(userStoryService.updateUserStory(id, userStory));
+        userStoryService.updateUserStory(id, userStory);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("{id}")

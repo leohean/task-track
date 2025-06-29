@@ -27,14 +27,24 @@ public class TaskService {
         task.setUserStory(us);
         task.setCreatedAt(LocalDateTime.now());
         task.setLastUpdateAt(LocalDateTime.now());
-        task.setStatus(TaskStatus.TO_DO);
 
         return taskRepository.save(task);
     }
 
-    public Task updateTask(Task task){
-        Optional<Task> foundTask = taskRepository.findById(task.getId());
-        return foundTask.isPresent() ? taskRepository.save(task) : null;
+    public void updateTask(Integer id, Task task){
+        Optional<Task> foundTask = taskRepository.findById(id);
+
+        if (foundTask.isPresent()) {
+            Task existingTask = foundTask.get();
+            existingTask.setTitle(task.getTitle());
+            existingTask.setDescription(task.getDescription());
+            existingTask.setStatus(task.getStatus());
+            existingTask.setTaskOrder(task.getTaskOrder());
+            existingTask.setLastUpdateAt(LocalDateTime.now());
+            existingTask.setSpentTime(task.getSpentTime());
+            existingTask.setEstimatedTime(task.getEstimatedTime());
+            taskRepository.save(existingTask);
+        }
     }
 
     public void deleteTaskById(Integer id){

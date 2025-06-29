@@ -22,14 +22,16 @@ public class SprintController {
 
     @PostMapping("{projectId}")
     @Operation(description = "Cria uma sprint nova do projeto em questão.")
-    public ResponseEntity<Sprint> createSprint(@PathVariable Integer projectId, @RequestBody Sprint sprint) {
-        return ResponseEntity.ok().body(sprintService.createSprint(projectId, sprint));
+    public ResponseEntity createSprint(@PathVariable Integer projectId, @RequestBody Sprint sprint) {
+        sprintService.createSprint(projectId, sprint);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("{id}")
     @Operation(description = "Atualiza a Sprint.")
     public ResponseEntity updateProject(@PathVariable Integer id, @RequestBody Sprint sprint) {
-        return ResponseEntity.ok().body(sprintService.updateSprint(id, sprint));
+        sprintService.updateSprint(id, sprint);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("{id}")
