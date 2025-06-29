@@ -1,5 +1,6 @@
 package com.leo_gui.task_track.project.model;
 
+import com.leo_gui.task_track.user.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +22,9 @@ public class Project {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "created_by")
-    private Integer createdBy;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
     @Column(name = "last_update_at")
     private LocalDateTime lastUpdateAt;
