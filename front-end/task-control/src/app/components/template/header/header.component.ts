@@ -136,7 +136,7 @@ export class HeaderComponent implements OnDestroy {
     } else if (url === '/**') {
       this.pageTitle = 'Página não encontrada';
     } else {
-      this.pageTitle = 'Task Control';
+      this.pageTitle = 'Task Track';
     }
   }
 
