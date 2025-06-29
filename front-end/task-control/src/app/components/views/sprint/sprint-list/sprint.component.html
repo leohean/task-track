@@ -6,7 +6,7 @@
                 [subtitle]="sprint.description" 
                 [createdBy]="sprint.createdBy?.name!" 
                 [createdAt]="sprint.createdAt!"
-                [showDeleteButton]="canDeleteProject(sprint)"
+                [showDeleteButton]="canDeleteSprint(sprint)"
                 (onViewClick)="accessSprint(sprint)"
                 (onEditClick)="editSprint(sprint)"
                 (onDeleteClick)="deleteSprint(sprint)">
