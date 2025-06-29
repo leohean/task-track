@@ -27,12 +27,14 @@ public class ProjectService {
     @Autowired
     private SprintSimpleDTOMapper sprintSimpleDTOMapper;
 
-    public Project createProject(Project project){
+    public Project createProject(ProjectDTO dto){
+        Project project = new Project();
+        project.setName(dto.name());
+        project.setDescription(dto.description());
         project.setCreatedAt(LocalDateTime.now());
         project.setLastUpdateAt(LocalDateTime.now());
 
-        Project savedProject = projectRepository.save(project);
-        return savedProject;
+        return projectRepository.save(project);
     }
 
     public Project getProject(Integer id){
@@ -40,14 +42,20 @@ public class ProjectService {
         return foundProject.isPresent() ? foundProject.get() : null;
     }
 
-    /*public Project updateProject(Integer id, ProjectDTO projectDTO){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
+    public Project updateProject(Integer id, ProjectDTO projectDTO){
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();*/
 
         Optional<Project> foundProject = projectRepository.findById(id);
-
-        return foundProject.isPresent() ? projectRepository.save(project) : null;
-    }*/
+        if (foundProject.isPresent()) {
+            Project project = foundProject.get();
+            project.setName(projectDTO.name());
+            project.setDescription(projectDTO.description());
+            project.setLastUpdateAt(LocalDateTime.now());
+            return projectRepository.save(project);
+        }
+        return null;
+    }
 
     public void deleteProjectById(Integer id){
         projectRepository.deleteById(id);

@@ -1,5 +1,6 @@
 package com.leo_gui.task_track.project.controller;
 
+import com.leo_gui.task_track.project.dto.ProjectDTO;
 import com.leo_gui.task_track.project.model.Project;
 import com.leo_gui.task_track.project.service.ProjectService;
 import com.leo_gui.task_track.sprint.dto.SprintDTO;
@@ -18,7 +19,7 @@ public class ProjectController {
 
     @Operation(description = "Cria um projeto novo.")
     @PostMapping()
-    public ResponseEntity createProject(@RequestBody Project project){
+    public ResponseEntity createProject(@RequestBody ProjectDTO project){
         return ResponseEntity.ok().body(projectService.createProject(project));
     }
 
@@ -26,6 +27,12 @@ public class ProjectController {
     @GetMapping("{id}")
     public ResponseEntity getProject(@PathVariable Integer id){
         return ResponseEntity.ok().body(projectService.getProject(id));
+    }
+
+    @Operation(description = "Atualiza o projeto especificado pelo id.")
+    @PutMapping("{id}")
+    public ResponseEntity updateProject(@PathVariable Integer id, @RequestBody ProjectDTO project){
+        return ResponseEntity.ok().body(projectService.updateProject(id, project));
     }
 
     @Operation(description = "Deleta o projeto indicado pelo id fornecido.")

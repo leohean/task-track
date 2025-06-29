@@ -41,10 +41,21 @@ public class SprintController {
         return ResponseEntity.ok().body("Sprint deletada com sucesso!");
     }
 
-    @GetMapping("{projectId}")
+    @GetMapping("project/{projectId}")
     @Operation(description = "Retorna de forma paginada as Sprints/UserStories/Tasks de um projeto.")
     public ResponseEntity<Page<SprintDTO>> getSprintsByProject(@PathVariable Integer projectId, Pageable page){
         Project project = projectService.getProject(projectId);
         return ResponseEntity.ok().body(sprintService.findAllSprintsByProject(project, page));
+    }
+
+    @GetMapping("{id}")
+    @Operation(description = "Retorna a Sprint especificada pelo id.")
+    public ResponseEntity<Sprint> getSprintsById(@PathVariable Integer id){
+        Sprint sprint = sprintService.getSprint(id);
+        if (sprint == null) {
+            return ResponseEntity.notFound().build();
+        }
+        sprint.setUserStories(null); // Avoid loading user stories
+        return ResponseEntity.ok().body(sprint);
     }
 }

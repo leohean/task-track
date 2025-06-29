@@ -37,7 +37,14 @@ public class SprintService {
 
     public Sprint updateSprint(Integer id, Sprint sprint){
         Optional<Sprint> sprintOptional = sprintRepository.findById(id);
-        return sprintOptional.isPresent() ? sprintRepository.save(sprint) : null;
+        if (sprintOptional.isPresent()) {
+            Sprint existingSprint = sprintOptional.get();
+            existingSprint.setName(sprint.getName());
+            existingSprint.setDescription(sprint.getDescription());
+            existingSprint.setLastUpdateAt(LocalDateTime.now());
+            return sprintRepository.save(existingSprint);
+        }
+        return null;
     }
 
     public void deleteSprintById(Integer id){sprintRepository.deleteById(id);}
