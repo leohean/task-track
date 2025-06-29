@@ -4,3 +4,16 @@
 <div [class]="isValidRoute ? 'container' : ''">
     <router-outlet />
 </div>
+
+<!-- Painel de aviso para resolução mínima -->
+<div class="resolution-warning" id="resolutionWarning" *ngIf="showResolutionWarning">
+    <div class="warning-content">
+        <div class="warning-icon">⚠️</div>
+        <h3>Resolução Mínima Necessária</h3>
+        <p>Para uma melhor experiência, recomendamos usar uma tela com resolução mínima de <strong>1600x800</strong>.</p>
+        <p>Sua resolução atual: <strong>{{ currentResolution }}</strong></p>
+        <button class="warning-close" (click)="closeWarning()">
+            Entendi
+        </button>
+    </div>
+</div>
