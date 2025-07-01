@@ -209,6 +209,10 @@ task-track/
 - **Porta**: 4200
 - **Proxy**: Configurado para redirecionar chamadas API para o backend
 
+### Web
+- **Login Admin(Email)**: admin@tasktrack.com
+- **Senha Admin**: admin123
+
 ## 🐛 Solução de Problemas
 
 ### Erro de Conexão com Banco
