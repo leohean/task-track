@@ -165,7 +165,7 @@ Antes de começar, você precisa instalar as seguintes ferramentas:
 
 2. **Instale as dependências**:
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. **Execute o projeto**:
@@ -223,7 +223,7 @@ task-track/
 
 ### Erro de Dependências
 - Backend: `mvn clean install`
-- Frontend: `npm install`
+- Frontend: `npm install --legacy-peer-deps`
 
 ### Problemas no VS Code
 - Verifique se as extensões Java e Spring Boot estão instaladas
@@ -250,7 +250,7 @@ mvn spring-boot:run
 ### Frontend
 ```bash
 # Instalar dependências
-npm install
+npm install --legacy-peer-deps
 
 # Executar em desenvolvimento
 npm start
