@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
           next: (response) => {
             console.log(response);
             this.authService.setToken(response.token);
-            this.router.navigate([this.returnUrl]);
+            this.router.navigate(['']);
           },
           error: (error) => {
             let errorMessage = 'Ocorreu um erro ao fazer login';

@@ -10,22 +10,22 @@ export const routes: Routes = [
     {
         path: '',
         component: ProjectComponent,
-        //canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'projects',
         component: ProjectComponent,
-        //canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'projects/:id/sprints',
         component: SprintComponent,
-        //canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'projects/:projectId/sprints/:sprintId',
         component: SprintDetailsComponent,
-        //canActivate: [authGuard]
+        canActivate: [authGuard]
     },
     {
         path: 'login',
