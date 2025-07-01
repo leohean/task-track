@@ -50,9 +50,7 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/projectuser/project/${projectId}/users`, { userIds });
   }
 
-  removeUsersFromProject(projectId: number, userIds: number[]): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/projectuser/project/${projectId}/users`, { 
-      body: { userIds } 
-    });
+  removeUserFromProject(projectId: number, userId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/projectuser/project/${projectId}/user/${userId}`);
   }
 } 

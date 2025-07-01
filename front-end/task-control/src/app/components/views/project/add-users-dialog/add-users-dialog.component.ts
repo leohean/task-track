@@ -108,7 +108,7 @@ export class AddUsersDialogComponent implements OnInit {
   }
 
   removeCurrentUser(user: BasicUser) {
-    this.userService.removeUsersFromProject(this.data.projectId, [user.userId]).subscribe({
+    this.userService.removeUserFromProject(this.data.projectId, user.userId).subscribe({
       next: (response) => {
         console.log('Usuário removido com sucesso:', response);
         const currentUserIndex = this.data.currentUsers.findIndex(u => u.userId === user.userId);
